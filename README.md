@@ -1,1 +1,1 @@
-# Thimza
+# $\textsf{Thimza}$
