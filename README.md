@@ -47,9 +47,9 @@ verification bound.
 
 Ring elements are stored as `uint64` coefficient arrays. Modular multiplication
 uses a floating point quotient followed by a wrap-around 64-bit reduction, which
-is exact for every prime `q < 2^51`; this is validated against schoolbook
+is exact for every prime `q < 2^51`; this is validated against
 negacyclic multiplication for both ring degrees used in our draft. The forward
-and inverse transforms are fully vectorized over the butterfly levels.
+and inverse transforms are vectorized.
 
 ## Licence
 
