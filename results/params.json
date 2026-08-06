@@ -1,0 +1,145 @@
+{
+ "estimator": [
+  {
+   "name": "Kyber-512",
+   "n": 512,
+   "logq": 12,
+   "beta": 406,
+   "core_svp": 118.6,
+   "published": 118
+  },
+  {
+   "name": "Kyber-768",
+   "n": 768,
+   "logq": 12,
+   "beta": 624,
+   "core_svp": 182.2,
+   "published": 183
+  },
+  {
+   "name": "Kyber-1024",
+   "n": 1024,
+   "logq": 12,
+   "beta": 874,
+   "core_svp": 255.2,
+   "published": 256
+  },
+  {
+   "name": "Dilithium-2",
+   "n": 1024,
+   "logq": 23,
+   "beta": 414,
+   "core_svp": 120.9,
+   "published": 123
+  },
+  {
+   "name": "Dilithium-3",
+   "n": 1280,
+   "logq": 23,
+   "beta": 519,
+   "core_svp": 151.5,
+   "published": null
+  }
+ ],
+ "ringtail": {
+  "kappa": 23,
+  "published_kappa": 23,
+  "log_sigma_u": 27.2,
+  "published_log_sigma_u": 27.2,
+  "log_sigma_star": 37.35,
+  "published_log_sigma_star": 37.3,
+  "log_B2": 48.51,
+  "published_log_B2": 48.6,
+  "nu": 29,
+  "xi": 30,
+  "published_nu": 29,
+  "published_xi": 30,
+  "offline": 602112,
+  "published_offline": 602112,
+  "online": 10752,
+  "published_online": 10752
+ },
+ "design_space": [
+  {
+   "phi": 256,
+   "ell": 7,
+   "k": 8,
+   "dbar": 48,
+   "logq": 48,
+   "offline": 602112,
+   "online": 10752,
+   "sig": 14208
+  },
+  {
+   "phi": 1024,
+   "ell": 2,
+   "k": 3,
+   "dbar": 24,
+   "logq": 47,
+   "offline": 451200,
+   "online": 12032,
+   "sig": 18592
+  },
+  {
+   "phi": 2048,
+   "ell": 1,
+   "k": 1,
+   "dbar": 10,
+   "logq": 46,
+   "offline": 129536,
+   "online": 11776,
+   "sig": 16160
+  },
+  {
+   "phi": 2048,
+   "ell": 1,
+   "k": 1,
+   "dbar": 7,
+   "logq": 49,
+   "offline": 100352,
+   "online": 12544,
+   "sig": 16672
+  }
+ ],
+ "thimza": {
+  "128": {
+   "phi": 512,
+   "logq": 49,
+   "ell": 4,
+   "k": 5,
+   "omega": 19,
+   "log_sigma_w_agg": 42.0,
+   "nu_t": 37,
+   "nu_w": 40,
+   "nu_c": 36,
+   "nu_c_rule": 36,
+   "delta_ratio": 0.1443
+  },
+  "192": {
+   "phi": 512,
+   "logq": 49,
+   "ell": 6,
+   "k": 7,
+   "omega": 31,
+   "log_sigma_w_agg": 42.0,
+   "nu_t": 36,
+   "nu_w": 40,
+   "nu_c": 36,
+   "nu_c_rule": 36,
+   "delta_ratio": 0.1443
+  },
+  "256": {
+   "phi": 512,
+   "logq": 49,
+   "ell": 7,
+   "k": 8,
+   "omega": 44,
+   "log_sigma_w_agg": 41.0,
+   "nu_t": 35,
+   "nu_w": 41,
+   "nu_c": 35,
+   "nu_c_rule": 35,
+   "delta_ratio": 0.1443
+  }
+ }
+}
