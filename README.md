@@ -27,7 +27,7 @@ python3 experiments/make_figures.py       # all EPS figures
 ## Procedure Check
 
 `run_all.py` executes the signing protocol of all six schemes for
-`(t,n)` in `{(2,3),(3,5),(4,6),(5,8),(7,10)}` and verifies resulting
+$(t,n)$ in ${(2,3),(3,5),(4,6),(5,8),(7,10)}$ and verifies resulting
 signatures. For the five interchangeable schemes the verifier used is the
 unmodified [Raccoon](https://link.springer.com/chapter/10.1007/978-3-031-68376-3_13) verifier, which is the operational content of functional
 interchangeability. It then measures the cost of every protocol round per signer
@@ -47,7 +47,7 @@ verification bound.
 
 Ring elements are stored as `uint64` coefficient arrays. Modular multiplication
 uses a floating point quotient followed by a wrap-around 64-bit reduction, which
-is exact for every prime `q < 2^51`; this is validated against
+is exact for every prime $q < 2^51$; this is validated against
 negacyclic multiplication for both ring degrees used in our draft. The forward
 and inverse transforms are vectorized.
 
