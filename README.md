@@ -22,7 +22,7 @@ python3 experiments/make_figures.py       # all EPS figures
 ```
 
 `run_all.py` writes `results/correctness.json` and `results/bench.json`.
-`make_figures.py` reads them and writes EPS outputs into `figures/`.
+`make_figures.py` reads them and writes EPS outputs into `figures/` directory for checking comparison.
 
 ## Procedure Check
 
