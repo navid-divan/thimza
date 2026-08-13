@@ -43,7 +43,7 @@ commitment truncation perturbation and the key rounding residue from their exact
 distributions and shows the largest observed signature norm against the
 verification bound.
 
-## Arithmetic backend
+## Arithmetic Backend
 
 Ring elements are stored as `uint64` coefficient arrays. Modular multiplication
 uses a floating point quotient followed by a wrap-around 64-bit reduction, which
