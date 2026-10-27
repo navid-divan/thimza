@@ -16,7 +16,7 @@ To run the prototype code, it requires `python` >= 3.9, `numpy`  >= 1.24, and `m
 
 ```
 python3 experiments/run_all.py            # correctness + benchmark, ~2 minutes
-python3 experiments/correctness_bound.py  # numerical check of Theorem 5.2
+python3 experiments/correctness_bound.py  # numerical check
 python3 experiments/derive_params.py      # parameter derivation and validation
 python3 experiments/make_figures.py       # all EPS figures
 ```
