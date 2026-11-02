@@ -2,7 +2,6 @@ require import AllCore Int List Distr.
 require import Params BigOps.
 import Rq.ComRingDflInv.
 
-(* A polynomial is its coefficient list, constant term first *)
 type poly = rq list.
 
 op peval (f : poly) (x : rq) : rq =
@@ -49,7 +48,7 @@ rewrite /pscale map_cons -/(pscale c f) !peval_cons ih.
 smt(mulrDr mulrCA).
 qed.
 
-(* Shifting a polynomial multiplies its value by the point *)
+(* Shifting multiplies values by the point *)
 lemma peval_shift (f : poly) (x : rq) : peval (pshift f) x = x * peval f x.
 proof. rewrite /pshift peval_cons. smt(add0r). qed.
 
@@ -72,7 +71,7 @@ proof. by rewrite /pshift /=; smt(). qed.
 
 op linmul (a : rq) (f : poly) : poly = padd (pshift f) (pscale (-a) f).
 
-(* Multiplying by a linear factor acts as expected on values *)
+(* Linear factors multiply values *)
 lemma peval_linmul (a : rq) (f : poly) (x : rq) :
   peval (linmul a f) x = (x - a) * peval f x.
 proof.
@@ -130,15 +129,14 @@ move=> ha; have := peval_syndiv f a x.
 smt(subr0).
 qed.
 
-(* Distinct nodes have invertible pairwise differences *)
 pred sep (ns : rq list) =
   forall a b, a \in ns => b \in ns => a <> b => unit (a - b).
 
-(* A separated node list stays separated after removing a head *)
+(* Separation survives removing the head *)
 lemma sep_cons (a : rq) (ns : rq list) : sep (a :: ns) => sep ns.
 proof. by move=> h b c hb hc hbc; apply h => //; rewrite in_cons ?hb ?hc. qed.
 
-(* A polynomial with more roots than coefficients vanishes *)
+(* Too many roots force zero *)
 lemma peval_many_roots (f : poly) (ns : rq list) :
   sep ns => uniq ns => size f <= size ns =>
   (forall a, a \in ns => peval f a = zeror) =>

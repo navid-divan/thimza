@@ -2,21 +2,18 @@ require import AllCore Int List Distr.
 require import Params Types BigOps PolyList Lagrange Sharing.
 import RqVec RqVec.Vector RqVec.Vector.ZModule.
 
-(* The evaluation points attached to a committee *)
 op nodesOf (T : committee) : rq list = map alpha T.
 
-(* Committees whose evaluation points are distinct and separated *)
 pred wf_nodes (T : committee) =
   sep (nodesOf T) /\ uniq (nodesOf T) /\ size (nodesOf T) = tthr.
 
-(* The reconstruction coefficient attached to a signer *)
 op lam_of (T : committee) (i : int) : rq = lagcoef (nodesOf T) (alpha i).
 
-(* A well formed committee has as many nodes as its threshold *)
+(* Committees have one node per member *)
 lemma size_nodesOf (T : committee) : size (nodesOf T) = size T.
 proof. by rewrite /nodesOf size_map. qed.
 
-(* Summing over a committee equals summing over its nodes *)
+(* Committee sums are node sums *)
 lemma rmap_nodesOf (T : committee) (g : rq -> rq) :
   rmap (fun i => g (alpha i)) T = rmap g (nodesOf T).
 proof.
@@ -56,7 +53,7 @@ lemma recons_exists (T : committee) :
   wf_nodes T => 0 < tthr => exists (lam : int -> rq), recons T lam.
 proof. by move=> hwf ht; exists (lam_of T); exact (lam_of_recons T hwf ht). qed.
 
-(* The reconstruction predicate is not vacuous at any threshold *)
+(* Reconstruction is never vacuous *)
 lemma recons_nonvacuous (T : committee) (s : vec) (p : int -> vec) :
   wf_nodes T => 0 < tthr =>
   exists (lam : int -> rq),

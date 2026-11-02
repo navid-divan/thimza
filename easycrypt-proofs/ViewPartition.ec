@@ -2,11 +2,9 @@ require import AllCore Int List Distr.
 require import Params Types Sharing Masking.
 import RqVec RqVec.Vector RqVec.Vector.ZModule.
 
-(* Committee members of a fixed class *)
 op classOf (T : committee) (cl : int -> int) (k : int) : committee =
   filter (fun i => cl i = k) T.
 
-(* Committee members outside a fixed class *)
 op outClass (T : committee) (cl : int -> int) (k : int) : committee =
   filter (fun i => cl i <> k) T.
 
@@ -65,3 +63,8 @@ lemma mask_class_agg (T : committee) (vw : view) (cl : int -> int) (k : int) (g 
   vmap (fun i => g i + mask T vw i) (classOf T cl k)
   = vmap g (classOf T cl k) + vmap (fun i => mask T vw i) (classOf T cl k).
 proof. by rewrite -vmap_split. qed.
+
+(* Responses decompose along view classes *)
+lemma view_partition (T : committee) (cl : int -> int) (g : int -> vec) (k : int) :
+  vmap g (classOf T cl k) + vmap g (outClass T cl k) = vmap g T.
+proof. exact (classOf_partition_sum T cl g k). qed.

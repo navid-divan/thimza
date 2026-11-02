@@ -1,97 +1,82 @@
-require import AllCore Int List Distr.
-require import Params Types Sharing Masking Assumptions Protocol Combine Verify.
-import RqVec RqVec.Vector RqVec.Vector.ZModule.
+require import AllCore Int List Distr FMap.
+require import Params Types Corruption Protocol Notions Games.
 
-module type Sign3Oracle = {
-  proc sign3(mu : msg, T : committee, vw : view, c : rq, i : int) : vec
-}.
-
-(* The weakest oracle level *)
-module type UF0Oracle = {
-  proc query(mu : msg) : sig
-}.
-
-(* The strongest oracle level *)
-module type UF4Oracle = {
-  proc sign3(mu : msg, T : committee, vw : view, c : rq, i : int) : vec
-  proc corrupt(i : int) : seed * vec
-  proc network(m : view) : cmt list * vec list
-}.
-
-module type Forger0 (O : UF0Oracle) = {
-  proc forge(t : vec) : msg * sig
-}.
-
-module type Forger4 (O : UF4Oracle) = {
-  proc forge(t : vec) : msg * sig
-}.
-
-module Setup = {
-  var tvk : vec
-}.
-
-(* The TS UF 0 experiment *)
-module GameUF0 (O : UF0Oracle) (F : Forger0) = {
-  proc main() : bool = {
-    var mu : msg;
-    var sg : sig;
-    var c, z, h;
-    (mu, sg) <@ F(O).forge(Setup.tvk);
-    (c, z, h) <- sg;
-    return vrfy Setup.tvk mu (c, z, h);
-  }
-}.
-
-(* The TS UF CA experiment *)
-module GameUF4 (O : UF4Oracle) (F : Forger4) = {
-  proc main() : bool = {
-    var mu : msg;
-    var sg : sig;
-    var c, z, h;
-    (mu, sg) <@ F(O).forge(Setup.tvk);
-    (c, z, h) <- sg;
-    return vrfy Setup.tvk mu (c, z, h);
-  }
-}.
-
-(* Singleton committees degenerate to ordinary signing *)
-op singleton (i : int) : committee = [i].
-
-(* Trivial singleton reconstruction coefficient *)
-op lamSingle : int -> rq = fun _ => Rq.oner.
-
-(* Singleton committees are well formed *)
-lemma singleton_wf (i : int) : tthr = 1 => wf_committee (singleton i).
-proof. by move=> ht; rewrite /wf_committee /singleton ht /=. qed.
-
-(* Singleton share is the master secret *)
-lemma singleton_share (s0 : vec) (p : int -> vec) (i : int) :
-  tthr = 1 => shr s0 p i = s0.
-proof. exact (shr_share0 s0 p i). qed.
-
-(* Singleton signers need no partners *)
-lemma singleton_no_partners (i : int) :
-  partners (singleton i) i = [].
-proof. by rewrite /partners /singleton /predC1 /=. qed.
-
-(* Singleton committees contribute no mask *)
-lemma singleton_mask_zero (vw : view) (i : int) :
-  mask (singleton i) vw i = zerov.
+(* The first oracle keeps opened tokens recorded *)
+lemma o1_reqinv : hoare [O.o1 : reqinv St.toks St.req ==> reqinv St.toks St.req].
 proof.
-rewrite (mask_partners (singleton i) vw i) singleton_no_partners.
-exact vmap_nil.
+proc; sp; if; last by skip.
+wp; rnd; rnd; skip => &m [[_ hri] hc] r _ e _ /=.
+move: hri; rewrite /reqinv => hri u; rewrite mem_set get_setE; case: (u = St.ctr{m}) => [-> /= | hne /=].
++ by rewrite /sign1.
+by move=> hu hp; exact (hri u hu hp).
 qed.
 
-(* Singleton response matches ordinary signing *)
-lemma singleton_response (c : rq) (s0 : vec) (p r : int -> vec) (vw : view) (i : int) :
-  tthr = 1 =>
-  zcomb (singleton i) (fun j => (Rq.( * ) c (lamSingle j)) ** shr s0 p j + r j + mask (singleton i) vw j)
-  = c ** s0 + r i.
+(* The second oracle keeps opened tokens recorded *)
+lemma o2_reqinv : hoare [O.o2 : reqinv St.toks St.req ==> reqinv St.toks St.req].
 proof.
-move=> ht.
-rewrite /zcomb /singleton vmap_cons vmap_nil /=.
-have e1 : shr s0 p i = s0 by exact (singleton_share s0 p i ht).
-have e2 : mask (singleton i) vw i = zerov by exact (singleton_mask_zero vw i).
-rewrite e1 e2.
-smt(RqVec.Vector.ZModule.addr0).
+proc; wp; skip => &m hri.
+case: (u{m} \in St.toks{m}) => hu //=.
+case: (sign2 St.h1{m} St.vk{m} (oget St.toks{m}.[u{m}]) T{m} cs{m} <> None) => hx //=.
+move: hri; rewrite /reqinv => hri u'; rewrite !mem_set get_setE; case: (u' = u{m}) => [-> //= | hne /=].
+by move=> hu' hp; rewrite (hri u' hu' hp).
 qed.
+
+section.
+
+declare module A <: Adv {-St, -Game}.
+
+(* Oracle invariants hold after every game *)
+lemma game_inv :
+  hoare [Game(A).main : true ==> inv St.cs St.toks St.req St.ctr St.lo St.lr
+                                  /\ reqinv St.toks St.req /\ (Game.ok => cadm St.cs)].
+proof.
+proc; wp.
+call (_ : inv St.cs St.toks St.req St.ctr St.lo St.lr /\ reqinv St.toks St.req).
++ by conseq o1_inv o1_reqinv.
++ by conseq o2_inv o2_reqinv.
++ by conseq o3_inv.
++ by proc; skip.
++ by proc; skip.
++ by proc; skip.
+wp; rnd; rnd; rnd; call (_ : true); rnd; rnd; rnd; skip => /> *.
+split; first split.
++ by move=> u; rewrite mem_empty.
++ by move=> u; rewrite mem_empty.
+by rewrite /reqinv => u; rewrite mem_empty.
+qed.
+
+(* Opening semantics forgeries are response semantics forgeries *)
+lemma uf4_o_r &m :
+  Pr[Game(A).main() @ &m : win4 St.cs St.lo Game.mu Game.ok]
+  <= Pr[Game(A).main() @ &m : win4 St.cs St.lr Game.mu Game.ok].
+proof.
+byequiv => //.
+conseq (_ : ={glob A} ==> ={St.cs, St.lo, St.lr, St.toks, Game.mu, Game.ok}) game_inv _ => //.
++ move=> &1 &2 _ muL okL csL ctrL loL lrL reqL toksL muR okR csR loR lrR toksR.
+  move=> [[#] e1 e2 e3 e4 e5 e6] [[hinv [_ hadm]] _] hw.
+  rewrite -e1 -e3 -e5 -e6.
+  have [_ [hlo [_ [hlr _]]]] := hinv.
+  apply (win4_o_r (tokOK toksL) csL lrL loL muL okL) => //.
+  by move=> V i /hlo [] hni [] hin hok; split => //; split => //; split.
+by sim.
+qed.
+
+(* Unforgeability notions form a hierarchy *)
+lemma uf_hierarchy &m :
+  Pr[Game(A).main() @ &m : win0 St.lo Game.mu Game.ok]
+  <= Pr[Game(A).main() @ &m : win4 St.cs St.lo Game.mu Game.ok].
+proof.
+byequiv => //.
+conseq (_ : ={glob A} ==> ={St.cs, St.lo, St.lr, St.toks, Game.mu, Game.ok}) game_inv _ => //.
++ move=> &1 &2 _ muL okL csL ctrL loL lrL reqL toksL muR okR csR loR lrR toksR.
+  move=> [[#] e1 e2 e3 e4 e5 e6] [[hinv [_ hadm]] _] hw.
+  rewrite -e1 -e2 -e5 -e6.
+  have [_ [hlo _]] := hinv.
+  have hc : size csL < tthr.
+  - by move: hw; rewrite /win0 => -[] /hadm; rewrite /cadm; smt().
+  apply (win0_win4 (tokOK toksL) csL loL muL okL hc) => //.
+  by move=> V i /hlo [] hni [] hin hok; split => //; split => //; split.
+by sim.
+qed.
+
+end section.

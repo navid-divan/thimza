@@ -2,19 +2,16 @@ require import AllCore Int List Distr DList.
 require import Params Types BigOps Masking.
 import RqVec RqVec.Vector RqVec.Vector.ZModule.
 
-(* Translating a list of vectors pointwise by a fixed family *)
 op shiftl (f : int -> vec) (H : committee) (ms : vec list) : vec list =
   map (fun (p : int * vec) => f p.`1 + p.`2) (zip H ms).
 
-(* Translation preserves the length of the response list *)
+(* Translation preserves list length *)
 lemma size_shiftl (f : int -> vec) (H : committee) (ms : vec list) :
   size ms = size H => size (shiftl f H ms) = size H.
 proof. by move=> h; rewrite /shiftl size_map size_zip; smt(). qed.
 
-(* The masks of the honest signers, with the last one closing the sum *)
 op closeSum (ms : vec list) : vec = - (vsum ms).
 
-(* A list of uniform vectors, one per honest signer but the last *)
 op dmasks (k : int) : vec list distr = dlist dvec k.
 
 (* The mask list distribution is lossless *)
@@ -48,7 +45,7 @@ proof. exact Masking.otp_perfect. qed.
 lemma vsum_nil : vsum [] = zerov.
 proof. by rewrite /vsum. qed.
 
-(* A vector list sum peels off its head *)
+(* List sums peel off heads *)
 lemma vsum_cons (a : vec) (l : vec list) : vsum (a :: l) = a + vsum l.
 proof. by rewrite /vsum. qed.
 
@@ -61,7 +58,7 @@ rewrite cat_cons !vsum_cons ih.
 exact RqVec.Vector.ZModule.addrA.
 qed.
 
-(* The sum of a translated list splits into the two parts *)
+(* Translated sums split in two *)
 lemma vsum_shiftl (f : int -> vec) (H : committee) (ms : vec list) :
   size ms = size H =>
   vsum (shiftl f H ms) = vmap f H + vsum ms.
@@ -83,7 +80,7 @@ have -> : - vsum ms + zerov = - vsum ms by smt(RqVec.Vector.ZModule.addr0).
 exact RqVec.Vector.ZModule.addrN.
 qed.
 
-(* The honest responses of a session sum to the unmasked aggregate *)
+(* Session responses sum to the aggregate *)
 lemma shareGen_sum (f : int -> vec) (H : committee) (ms : vec list) :
   size ms = size H - 1 => 0 < size H =>
   vsum (shiftl f H (ms ++ [closeSum ms])) = vmap f H.
@@ -94,7 +91,7 @@ rewrite vsum_shiftl.
 by rewrite vsum_close RqVec.Vector.ZModule.addr0.
 qed.
 
-(* The simulated responses sum to the same aggregate *)
+(* Simulated responses sum to the aggregate *)
 lemma ideal_sum (f : int -> vec) (H : committee) (zs0 : vec list) :
   vsum (zs0 ++ [vmap f H - vsum zs0]) = vmap f H.
 proof.
@@ -105,7 +102,7 @@ rewrite RqVec.Vector.ZModule.addrC.
 exact RqVec.Vector.ZModule.subrK.
 qed.
 
-(* Real and simulated share generation agree on the aggregate *)
+(* Real and simulated aggregates agree *)
 lemma shareGen_agree (f : int -> vec) (H : committee) (ms zs0 : vec list) :
   size ms = size H - 1 => 0 < size H =>
   vsum (shiftl f H (ms ++ [closeSum ms])) = vsum (zs0 ++ [vmap f H - vsum zs0]).

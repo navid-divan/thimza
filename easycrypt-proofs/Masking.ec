@@ -2,23 +2,18 @@ require import AllCore Int List Distr.
 require import Params Types.
 import RqVec RqVec.Vector RqVec.Vector.ZModule.
 
-(* Pairwise masking pseudorandom function *)
 op prf : seed -> view -> vec.
 
-(* Per unordered pair pseudorandom masking seeds *)
 op pairseed : int -> int -> seed.
 
-(* Masking term of one partner *)
 op term (T : committee) (vw : view) (i j : int) : vec =
   if i = j then zerov
   else if i < j then prf (pairseed i j) vw
   else - (prf (pairseed j i) vw).
 
-(* Total antisymmetric mask received by a signer *)
 op mask (T : committee) (vw : view) (i : int) : vec =
   vmap (term T vw i) T.
 
-(* Partners of a signer inside a committee *)
 op partners (T : committee) (i : int) : committee = filter (predC1 i) T.
 
 (* Self masking terms are zero *)
@@ -140,7 +135,6 @@ move=> _ m hm; split; first exact dvec_fu.
 by move=> _; rewrite vsubK.
 qed.
 
-(* A uniform partner term perfectly masks *)
 module OTPFromPartner = {
   proc masked(u : vec, T : committee, vw : view, i j : int) : vec = {
     var m, r : vec;

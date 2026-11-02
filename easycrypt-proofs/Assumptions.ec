@@ -1,106 +1,101 @@
-require import AllCore Int List Distr.
-require import Params Types.
-import RqVec RqVec.Vector RqVec.Vector.ZModule.
+require import AllCore Int List Distr DList Real.
+require import Params Types Protocol Extract.
+import RqVec RqVec.Vector RqVec.Vector.ZModule RqRow.Vector RqRow.Vector.ZModule.
 
-(* Public matrix of the deployment *)
-op mA : mx.
+type key.
 
-(* Bound predicate defining an accepting signature norm *)
-op inbnd : vec -> vec -> bool.
+op dkey : key distr.
 
-(* Commitment truncation rounding operator *)
-op rndc : vec -> vec.
+op prfk : key -> view -> vec.
 
-(* Aggregate truncation rounding operator *)
-op rndw : vec -> vec.
+op drf : (view -> vec) distr.
 
-(* Public key rounding operator *)
-op rndt : vec -> vec.
+module type PRFOracle = { proc f(x : view) : vec }.
 
-(* Public key lift operator *)
-op liftt : vec -> vec.
+module type PRFAdv (O : PRFOracle) = { proc guess() : bool }.
 
-(* Commitment hash function *)
-op Hcmt : vec -> msg -> int -> vec -> cmt.
-
-(* Transcript view hash function *)
-op Hview : vec -> msg -> committee -> cmt list -> vec list -> view.
-
-(* Fiat Shamir challenge hash function *)
-op Hchal : vec -> vec -> msg -> rq.
-
-module type MLWEAdv = {
-  proc guess(mA : mx, t : vec) : bool
+module PRFReal = {
+  var k : key
+  proc init() : unit = { k <$ dkey; }
+  proc f(x : view) : vec = { return prfk k x; }
 }.
 
-module MLWEReal (A : MLWEAdv) = {
-  proc main() : bool = {
-    var s, e, t : vec;
-    var b : bool;
-    s <$ dvec;
-    e <$ dvec;
-    t <- mA *^ s + e;
-    b <@ A.guess(mA, t);
-    return b;
+module PRFIdeal = {
+  var g : view -> vec
+  proc init() : unit = { g <$ drf; }
+  proc f(x : view) : vec = { return g x; }
+}.
+
+module PRFGame (A : PRFAdv) = {
+  proc real() : bool = { var b; PRFReal.init(); b <@ A(PRFReal).guess(); return b; }
+  proc ideal() : bool = { var b; PRFIdeal.init(); b <@ A(PRFIdeal).guess(); return b; }
+}.
+
+op dkeyv : vec distr.
+
+op dkeyr : row distr.
+
+op dnv : vec distr.
+
+op dnr : row distr.
+
+op dchal : rq distr.
+
+type hintv = rq * vec * row.
+
+module type HintAdv = { proc guess(b : row, hs : hintv list) : bool }.
+
+module HintMLWE (A : HintAdv) = {
+  proc mkh(s : vec, e : row) : hintv = {
+    var c, r, ep;
+    c <$ dchal;
+    r <$ dnv;
+    ep <$ dnr;
+    return (c, c ** s + r, rowZ c e + ep);
+  }
+
+  proc real(nq : int) : bool = {
+    var s, e, hs, h, i, bit;
+    s <$ dkeyv;
+    e <$ dkeyr;
+    hs <- [];
+    i <- 0;
+    while (i < nq) { h <@ mkh(s, e); hs <- rcons hs h; i <- i + 1; }
+    bit <@ A.guess(mulA mA s + e, hs);
+    return bit;
+  }
+
+  proc ideal(nq : int) : bool = {
+    var s, e, b, hs, h, i, bit;
+    s <$ dkeyv;
+    e <$ dkeyr;
+    b <$ drow;
+    hs <- [];
+    i <- 0;
+    while (i < nq) { h <@ mkh(s, e); hs <- rcons hs h; i <- i + 1; }
+    bit <@ A.guess(b, hs);
+    return bit;
   }
 }.
 
-module MLWEIdeal (A : MLWEAdv) = {
+op dG : (row -> row * msg -> rq) distr.
+
+module GO = {
+  var g : row -> row * msg -> rq
+  proc init() : unit = { g <$ dG; }
+  proc h(y : row, a : row * msg) : rq = { return g y a; }
+}.
+
+module type GOracle = { proc h(y : row, a : row * msg) : rq }.
+
+module type STAdv (G : GOracle) = { proc solve(b : row) : row * msg * vec * rq * row }.
+
+module STMSIS (A : STAdv) = {
   proc main() : bool = {
-    var t : vec;
-    var b : bool;
-    t <$ dvec;
-    b <@ A.guess(mA, t);
-    return b;
-  }
-}.
-
-module type STMSISAdv = {
-  proc forge(mA : mx, t : vec) : msg * rq * vec
-}.
-
-op stmsisWin (t z : vec) (c : rq) (mu : msg) : bool =
-  c = Hchal t (rndw (mA *^ z - c ** liftt t)) mu /\ inbnd z zerov.
-
-module STMSIS (A : STMSISAdv) = {
-  proc main() : bool = {
-    var s, e, t : vec;
-    var mu : msg;
-    var c : rq;
-    var z : vec;
-    s <$ dvec;
-    e <$ dvec;
-    t <- mA *^ s + e;
-    (mu, c, z) <@ A.forge(mA, t);
-    return stmsisWin t z c mu;
-  }
-}.
-
-module type HintMLWEAdv = {
-  proc guess(mA : mx, t : vec, hv : vec) : bool
-}.
-
-module HintMLWEReal (A : HintMLWEAdv) = {
-  proc main() : bool = {
-    var s, e, r, hv, t : vec;
-    var b : bool;
-    s <$ dvec;
-    e <$ dvec;
-    r <$ dvec;
-    t <- mA *^ s + e;
-    hv <- r - rndw (mA *^ r);
-    b <@ A.guess(mA, t, hv);
-    return b;
-  }
-}.
-
-module HintMLWEIdeal (A : HintMLWEAdv) = {
-  proc main() : bool = {
-    var t, hv : vec;
-    var b : bool;
-    t <$ dvec;
-    hv <$ dvec;
-    b <@ A.guess(mA, t, hv);
-    return b;
+    var b, vk, mu, z, c, u;
+    GO.init();
+    b <$ drow;
+    (vk, mu, z, c, u) <@ A(GO).solve(b);
+    return GO.g (stimage vk z c u) (vk, mu) = c /\ solnorm z c u <= bst;
   }
 }.

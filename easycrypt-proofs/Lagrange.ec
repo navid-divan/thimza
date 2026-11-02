@@ -6,26 +6,25 @@ import Rq.ComRingDflInv.
 lemma rem_mem_neq (x y : 'a) (s : 'a list) : uniq s => y \in rem x s => y <> x.
 proof. by move=> hu; rewrite (rem_filter x s hu) mem_filter /predC1 => -[]. qed.
 
-(* The monic product of linear factors over a node list *)
 op nodepoly (ns : rq list) : poly =
   with ns = "[]"     => [oner]
   with ns = (::) a l => linmul a (nodepoly l).
 
-(* The node polynomial is never the empty list *)
+(* Node polynomials are never empty *)
 lemma nodepoly_nonnil (ns : rq list) : nodepoly ns <> [].
 proof.
 elim ns => [| a l ih] //=.
 by rewrite /linmul /padd /pshift; smt(size_ge0 size_eq0 size_padd size_pshift).
 qed.
 
-(* The node polynomial has one coefficient per node, plus one *)
+(* Node polynomials have size plus one *)
 lemma size_nodepoly (ns : rq list) : size (nodepoly ns) = size ns + 1.
 proof.
 elim ns => [| a l ih] //=.
 by rewrite (size_linmul a (nodepoly l) (nodepoly_nonnil l)) ih; smt().
 qed.
 
-(* The node polynomial is the product of its linear factors *)
+(* Node polynomials multiply linear factors *)
 lemma peval_nodepoly (ns : rq list) (x : rq) :
   peval (nodepoly ns) x = rprod (fun a => x - a) ns.
 proof.
@@ -34,7 +33,7 @@ elim ns => [| a l ih] /=.
 by rewrite peval_linmul ih rprod_cons.
 qed.
 
-(* The node polynomial vanishes at each of its nodes *)
+(* Node polynomials vanish at nodes *)
 lemma nodepoly_root (ns : rq list) (a : rq) :
   a \in ns => peval (nodepoly ns) a = zeror.
 proof.
@@ -42,14 +41,12 @@ move=> ha; rewrite peval_nodepoly.
 by apply (rprod_zero (fun b => a - b) ns a ha); smt(subrr).
 qed.
 
-(* The Lagrange denominator of one node against the others *)
 op lagden (ns : rq list) (i : rq) : rq = rprod (fun b => i - b) (rem i ns).
 
-(* The Lagrange basis polynomial of one node *)
 op lagbasis (ns : rq list) (i : rq) : poly =
   pscale (invr (lagden ns i)) (nodepoly (rem i ns)).
 
-(* A separated node list has invertible Lagrange denominators *)
+(* Separated nodes give invertible denominators *)
 lemma lagden_unit (ns : rq list) (i : rq) :
   sep ns => uniq ns => i \in ns => unit (lagden ns i).
 proof.
@@ -60,7 +57,7 @@ have hbi : i <> b by smt(rem_mem_neq).
 by apply hsep.
 qed.
 
-(* The basis polynomial has one coefficient per node *)
+(* Basis polynomials have node count coefficients *)
 lemma size_lagbasis (ns : rq list) (i : rq) :
   i \in ns => size (lagbasis ns i) = size ns.
 proof.
@@ -68,7 +65,7 @@ move=> hi; rewrite /lagbasis size_pscale size_nodepoly.
 by smt(size_rem).
 qed.
 
-(* The basis polynomial is one at its own node *)
+(* Basis polynomials are one at home *)
 lemma lagbasis_self (ns : rq list) (i : rq) :
   sep ns => uniq ns => i \in ns => peval (lagbasis ns i) i = oner.
 proof.
@@ -79,7 +76,7 @@ have -> : rprod (fun a => i - a) (rem i ns) = lagden ns i by rewrite /lagden.
 smt(Rq.ComRingDflInv.mulVr).
 qed.
 
-(* The basis polynomial vanishes at every other node *)
+(* Basis polynomials vanish elsewhere *)
 lemma lagbasis_other (ns : rq list) (i k : rq) :
   uniq ns => i \in ns => k \in ns => k <> i =>
   peval (lagbasis ns i) k = zeror.
@@ -90,11 +87,9 @@ have hkrem : k \in rem i ns by rewrite (mem_rem_neq i ns k _) 1:/#.
 rewrite (nodepoly_root (rem i ns) k hkrem). smt(mulr0).
 qed.
 
-(* The reconstruction coefficient of one node *)
 op lagcoef (ns : rq list) (i : rq) : rq = peval (lagbasis ns i) zeror.
 
-(* The interpolant of a value family over the nodes *)
-(* The Lagrange identities that define a reconstruction family *)
+(* Lagrange identities define reconstruction *)
 lemma lagrange_identity (ns : rq list) (f : poly) :
   sep ns => uniq ns => size f <= size ns =>
   rmap (fun i => lagcoef ns i * peval f i) ns = peval f zeror.
@@ -150,7 +145,7 @@ have -> : rmap (fun i => lagcoef ns i * peval f i) ns
 by smt(subr_eq0 subrr addrC add0r).
 qed.
 
-(* The reconstruction coefficients sum to the ring unit *)
+(* Reconstruction coefficients sum to one *)
 lemma lagcoef_sum_one (ns : rq list) :
   sep ns => uniq ns => 0 < size ns =>
   rmap (fun i => lagcoef ns i) ns = oner.
@@ -177,10 +172,9 @@ move=> hsep huniq hsz h0.
 by rewrite (lagrange_identity ns f hsep huniq hsz) h0.
 qed.
 
-(* The powers of a node, as a polynomial of that degree *)
 op monomial (u : int) : poly = nseq u zeror ++ [oner].
 
-(* A monomial has one coefficient per degree, plus one *)
+(* Monomials have degree plus one coefficients *)
 lemma size_monomial (u : int) : 0 <= u => size (monomial u) = u + 1.
 proof. by move=> hu; rewrite /monomial size_cat size_nseq /=; smt(). qed.
 
@@ -196,11 +190,11 @@ have -> : peval (nseq n zeror ++ [oner]) x = exp x n by rewrite -/(monomial n) i
 by rewrite exprS //; smt(add0r mulrC).
 qed.
 
-(* A positive monomial vanishes at the ring zero *)
+(* Positive monomials vanish at zero *)
 lemma peval_monomial_zero (u : int) : 0 < u => peval (monomial u) zeror = zeror.
 proof. by move=> hu; rewrite peval_monomial 1:/#; smt(expr0z). qed.
 
-(* Reconstruction coefficients sum to one over the committee *)
+(* Committee coefficients sum to one *)
 lemma lagcoef_id0 (ns : rq list) :
   sep ns => uniq ns => 0 < size ns =>
   rmap (fun i => lagcoef ns i) ns = oner.

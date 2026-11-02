@@ -1,26 +1,99 @@
 require import AllCore Int IntDiv List Distr.
 require import Ring.
-require (*--*) PolyReduce Matrix Bigalg.
+require PolyReduce Matrix Bigalg.
 
-(* Ring modulus of the deployment *)
 op qmod : { int | 2 <= qmod } as ge2_qmod.
 
-(* Ring degree of the deployment *)
 op phi  : { int | 0 < phi  } as gt0_phi.
 
-(* Public matrix row dimension *)
 op krow : { int | 0 < krow } as gt0_krow.
 
-(* Public matrix and vector column dimension *)
 op ell  : { int | 0 < ell  } as gt0_ell.
 
 clone PolyReduce.PolyReduceZp as Rq with
   op p <= qmod,
   op n <= phi
   proof ge2_p by exact ge2_qmod
-  proof gt0_n by exact gt0_phi.
+  proof gt0_n by exact gt0_phi
+  proof *.
 
 type rq = Rq.polyXnD1.
+
+op prevecl (f : int -> rq) = forall i, !(0 <= i < ell) => f i = Rq.zeror.
+op prevech (f : int -> rq) = forall i, !(0 <= i < krow) => f i = Rq.zeror.
+op prematl (f : int -> int -> rq) =
+  forall i j, !(0 <= i < ell /\ 0 <= j < ell) => f i j = Rq.zeror.
+op premath (f : int -> int -> rq) =
+  forall i j, !(0 <= i < krow /\ 0 <= j < krow) => f i j = Rq.zeror.
+
+subtype vecl as VL = { f : int -> rq | prevecl f }.
+realize inhabited. proof. by exists (fun _ => Rq.zeror). qed.
+
+subtype vech as VH = { f : int -> rq | prevech f }.
+realize inhabited. proof. by exists (fun _ => Rq.zeror). qed.
+
+subtype matl as ML = { f : int -> int -> rq | prematl f }.
+realize inhabited. proof. by exists (fun _ _ => Rq.zeror). qed.
+
+subtype math as MH = { f : int -> int -> rq | premath f }.
+realize inhabited. proof. by exists (fun _ _ => Rq.zeror). qed.
+
+op clampl (f : int -> rq) = fun i => if 0 <= i < ell then f i else Rq.zeror.
+op clamph (f : int -> rq) = fun i => if 0 <= i < krow then f i else Rq.zeror.
+op mclampl (f : int -> int -> rq) =
+  fun i j => if 0 <= i < ell /\ 0 <= j < ell then f i j else Rq.zeror.
+op mclamph (f : int -> int -> rq) =
+  fun i j => if 0 <= i < krow /\ 0 <= j < krow then f i j else Rq.zeror.
+
+(* Clamping fixes vectors of length ell *)
+lemma vl_tofunvK : cancel VL.val (fun f => VL.insubd (clampl f)).
+proof.
+move=> v /=; rewrite -{2}(VL.valKd v); congr.
+apply fun_ext => i; rewrite /clampl /=; case (0 <= i < ell) => // hi.
+have h := VL.valP v; rewrite /prevecl in h; by rewrite (h i hi).
+qed.
+
+(* Clamped functions are vectors of length ell *)
+lemma vl_offunvK (f : int -> rq) : VL.val (VL.insubd (clampl f)) = clampl f.
+proof. by rewrite VL.insubdK // /prevecl /clampl => i ->. qed.
+
+(* Clamping fixes vectors of length krow *)
+lemma vh_tofunvK : cancel VH.val (fun f => VH.insubd (clamph f)).
+proof.
+move=> v /=; rewrite -{2}(VH.valKd v); congr.
+apply fun_ext => i; rewrite /clamph /=; case (0 <= i < krow) => // hi.
+have h := VH.valP v; rewrite /prevech in h; by rewrite (h i hi).
+qed.
+
+(* Clamped functions are vectors of length krow *)
+lemma vh_offunvK (f : int -> rq) : VH.val (VH.insubd (clamph f)) = clamph f.
+proof. by rewrite VH.insubdK // /prevech /clamph => i ->. qed.
+
+(* Clamping fixes square matrices of size ell *)
+lemma ml_tofunmK : cancel ML.val (fun f => ML.insubd (mclampl f)).
+proof.
+move=> m /=; rewrite -{2}(ML.valKd m); congr.
+apply fun_ext => i; apply fun_ext => j; rewrite /mclampl /=.
+case (0 <= i < ell /\ 0 <= j < ell) => // hij.
+have h := ML.valP m; rewrite /prematl in h; by rewrite (h i j hij).
+qed.
+
+(* Clamped functions are matrices of size ell *)
+lemma ml_offunmK (f : int -> int -> rq) : ML.val (ML.insubd (mclampl f)) = mclampl f.
+proof. by rewrite ML.insubdK // /prematl /mclampl => i j ->. qed.
+
+(* Clamping fixes square matrices of size krow *)
+lemma mh_tofunmK : cancel MH.val (fun f => MH.insubd (mclamph f)).
+proof.
+move=> m /=; rewrite -{2}(MH.valKd m); congr.
+apply fun_ext => i; apply fun_ext => j; rewrite /mclamph /=.
+case (0 <= i < krow /\ 0 <= j < krow) => // hij.
+have h := MH.valP m; rewrite /premath in h; by rewrite (h i j hij).
+qed.
+
+(* Clamped functions are matrices of size krow *)
+lemma mh_offunmK (f : int -> int -> rq) : MH.val (MH.insubd (mclamph f)) = mclamph f.
+proof. by rewrite MH.insubdK // /premath /mclamph => i j ->. qed.
 
 clone Matrix as RqVec with
   type ZR.t     <- rq,
@@ -31,7 +104,13 @@ clone Matrix as RqVec with
   op   ZR.( * ) <- Rq.( * ),
   op   ZR.invr  <- Rq.ComRingDflInv.invr,
   pred ZR.unit  <- Rq.ComRingDflInv.unit,
-  op   size     <- ell
+  op   size     <- ell,
+  type vector   <- vecl,
+  op   Vector.tofunv <= VL.val,
+  op   Vector.offunv <= (fun f => VL.insubd (clampl f)),
+  type Matrix.matrix <- matl,
+  op   Matrix.tofunm <= ML.val,
+  op   Matrix.offunm <= (fun f => ML.insubd (mclampl f))
   proof ZR.addrA     by exact Rq.ComRingDflInv.addrA
   proof ZR.addrC     by exact Rq.ComRingDflInv.addrC
   proof ZR.add0r     by exact Rq.ComRingDflInv.add0r
@@ -44,7 +123,14 @@ clone Matrix as RqVec with
   proof ZR.mulVr     by exact Rq.ComRingDflInv.mulVr
   proof ZR.unitP     by exact Rq.ComRingDflInv.unitP
   proof ZR.unitout   by exact Rq.ComRingDflInv.unitout
-  proof ge0_size     by smt(gt0_ell).
+  proof ge0_size     by smt(gt0_ell)
+  proof Vector.tofunv_prevector by exact VL.valP
+  proof Vector.tofunvK by exact vl_tofunvK
+  proof Vector.offunvK by exact vl_offunvK
+  proof Matrix.tofunm_prematrix by exact ML.valP
+  proof Matrix.tofunmK by exact ml_tofunmK
+  proof Matrix.offunmK by exact ml_offunmK
+  proof *.
 
 clone Matrix as RqRow with
   type ZR.t     <- rq,
@@ -55,7 +141,13 @@ clone Matrix as RqRow with
   op   ZR.( * ) <- Rq.( * ),
   op   ZR.invr  <- Rq.ComRingDflInv.invr,
   pred ZR.unit  <- Rq.ComRingDflInv.unit,
-  op   size     <- krow
+  op   size     <- krow,
+  type vector   <- vech,
+  op   Vector.tofunv <= VH.val,
+  op   Vector.offunv <= (fun f => VH.insubd (clamph f)),
+  type Matrix.matrix <- math,
+  op   Matrix.tofunm <= MH.val,
+  op   Matrix.offunm <= (fun f => MH.insubd (mclamph f))
   proof ZR.addrA     by exact Rq.ComRingDflInv.addrA
   proof ZR.addrC     by exact Rq.ComRingDflInv.addrC
   proof ZR.add0r     by exact Rq.ComRingDflInv.add0r
@@ -68,15 +160,22 @@ clone Matrix as RqRow with
   proof ZR.mulVr     by exact Rq.ComRingDflInv.mulVr
   proof ZR.unitP     by exact Rq.ComRingDflInv.unitP
   proof ZR.unitout   by exact Rq.ComRingDflInv.unitout
-  proof ge0_size     by smt(gt0_krow).
+  proof ge0_size     by smt(gt0_krow)
+  proof Vector.tofunv_prevector by exact VH.valP
+  proof Vector.tofunvK by exact vh_tofunvK
+  proof Vector.offunvK by exact vh_offunvK
+  proof Matrix.tofunm_prematrix by exact MH.valP
+  proof Matrix.tofunmK by exact mh_tofunmK
+  proof Matrix.offunmK by exact mh_offunmK
+  proof *.
 
 import RqVec RqVec.Vector RqVec.Vector.ZModule.
 
-type vec = RqVec.vector.
+type vec = vecl.
 
-type row = RqRow.vector.
+type row = vech.
 
-type mx = RqVec.Matrix.matrix.
+type mx = matl.
 
 clone Bigalg.BigZModule as BigV with
   type ZM.t     <- vec,
@@ -86,7 +185,8 @@ clone Bigalg.BigZModule as BigV with
   proof ZM.addrA by exact RqVec.Vector.ZModule.addrA
   proof ZM.addrC by exact RqVec.Vector.ZModule.addrC
   proof ZM.add0r by exact RqVec.Vector.ZModule.add0r
-  proof ZM.addNr by exact RqVec.Vector.ZModule.addNr.
+  proof ZM.addNr by exact RqVec.Vector.ZModule.addNr
+  proof *.
 
 op dRq : rq distr = Rq.dpolyXnD1.
 
@@ -326,3 +426,82 @@ proof. by rewrite vneg_scale mulmxvZ vscaleN vscale1. qed.
 (* Linear maps commute with subtraction *)
 lemma mulmxvB (m : mx) (v w : vec) : m *^ (v - w) = m *^ v - m *^ w.
 proof. by rewrite RqVec.Matrix.mulmxvDr mulmxvN. qed.
+
+type mat = int -> vec.
+
+op mulA (a : mat) (v : vec) : row =
+  RqRow.Vector.offunv (fun i => RqVec.Vector.dotp (a i) v).
+
+op rowZ (c : rq) (x : row) : row = RqRow.Vector.scalev c x.
+
+(* Inner products are linear when scaled *)
+lemma dotpZr (u v : vec) (c : rq) :
+  RqVec.Vector.dotp u (c ** v) = Rq.( * ) c (RqVec.Vector.dotp u v).
+proof.
+rewrite /RqVec.Vector.dotp RqVec.Big.BAdd.mulr_sumr.
+apply RqVec.Big.BAdd.eq_bigr => j _ /=.
+by rewrite RqVec.Vector.scalevE Rq.ComRingDflInv.mulrCA.
+qed.
+
+(* The matrix product is additive *)
+lemma mulAD (a : mat) (v w : vec) :
+  mulA a (v + w) = RqRow.Vector.( + ) (mulA a v) (mulA a w).
+proof.
+apply RqRow.Vector.eq_vectorP => i hi.
+by rewrite RqRow.Vector.offunD !RqRow.Vector.offunvE //= RqVec.Vector.dotpDr.
+qed.
+
+(* The matrix product commutes with ring scaling *)
+lemma mulAZ (a : mat) (c : rq) (v : vec) :
+  mulA a (c ** v) = rowZ c (mulA a v).
+proof.
+apply RqRow.Vector.eq_vectorP => i hi.
+by rewrite /rowZ RqRow.Vector.scalevE !RqRow.Vector.offunvE //= dotpZr.
+qed.
+
+(* The matrix product maps zero to zero *)
+lemma mulA0 (a : mat) : mulA a zerov = RqRow.Vector.zerov.
+proof.
+have h := mulAD a zerov zerov.
+rewrite RqVec.Vector.ZModule.addr0 in h.
+have := RqRow.Vector.ZModule.addrI (mulA a zerov) (mulA a zerov) RqRow.Vector.zerov.
+by rewrite RqRow.Vector.ZModule.addr0 -h.
+qed.
+
+(* The matrix product commutes with negation *)
+lemma mulAN (a : mat) (v : vec) : mulA a (- v) = RqRow.Vector.([-]) (mulA a v).
+proof.
+apply (RqRow.Vector.ZModule.addrI (mulA a v)).
+by rewrite -mulAD RqVec.Vector.ZModule.addrN mulA0 RqRow.Vector.ZModule.addrN.
+qed.
+
+(* The matrix product commutes with subtraction *)
+lemma mulAB (a : mat) (v w : vec) :
+  mulA a (v - w) = RqRow.Vector.( + ) (mulA a v) (RqRow.Vector.([-]) (mulA a w)).
+proof. by rewrite mulAD mulAN. qed.
+
+op rsumv (xs : row list) : row = foldr RqRow.Vector.( + ) RqRow.Vector.zerov xs.
+
+op rowmap (f : 'a -> row) (L : 'a list) : row = rsumv (map f L).
+
+(* Empty row sum is zero *)
+lemma rowmap_nil (f : 'a -> row) : rowmap f [] = RqRow.Vector.zerov.
+proof. by rewrite /rowmap /rsumv. qed.
+
+(* Row sum peels off its head *)
+lemma rowmap_cons (f : 'a -> row) (x : 'a) (L : 'a list) :
+  rowmap f (x :: L) = RqRow.Vector.( + ) (f x) (rowmap f L).
+proof. by rewrite /rowmap /rsumv. qed.
+
+(* The matrix product commutes with finite sums *)
+lemma mulA_vmap (a : mat) (f : 'a -> vec) (L : 'a list) :
+  mulA a (vmap f L) = rowmap (fun x => mulA a (f x)) L.
+proof.
+elim L => [| x L ih]; first by rewrite vmap_nil rowmap_nil mulA0.
+by rewrite vmap_cons rowmap_cons mulAD ih.
+qed.
+
+(* Row scaling distributes over row addition *)
+lemma rowZD (c : rq) (x y : row) :
+  rowZ c (RqRow.Vector.( + ) x y) = RqRow.Vector.( + ) (rowZ c x) (rowZ c y).
+proof. exact RqRow.Vector.scalevDr. qed.

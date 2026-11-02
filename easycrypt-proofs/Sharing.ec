@@ -4,11 +4,9 @@ import RqVec RqVec.Vector RqVec.Vector.ZModule.
 
 op ipow (x : rq) (u : int) : rq = Rq.ComRingDflInv.exp x u.
 
-(* A Shamir share of the secret *)
 op shr (s : vec) (p : int -> vec) (i : int) : vec =
   s + vmap (fun u => (ipow (alpha i) u) ** p u) (range 1 tthr).
 
-(* Lagrange reconstruction coefficient predicate *)
 pred recons (T : committee) (lam : int -> rq) =
   rmap lam T = Rq.oner /\
   forall u, 1 <= u < tthr =>

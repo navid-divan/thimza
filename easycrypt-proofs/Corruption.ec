@@ -2,21 +2,17 @@ require import AllCore Int List Distr FSet.
 require import Params Types BigOps Sharing Masking.
 import RqVec RqVec.Vector RqVec.Vector.ZModule.
 
-(* The signers an adversary has statically corrupted *)
 type corrset = int list.
 
-(* A corruption set is admissible below the threshold *)
 pred admissible (C : corrset) = uniq C /\ size C <= tthr - 1.
 
-(* The honest members of a committee *)
 op honest (T : committee) (C : corrset) : committee =
   filter (fun i => !(i \in C)) T.
 
-(* The corrupted members of a committee *)
 op corrupted (T : committee) (C : corrset) : committee =
   filter (fun i => i \in C) T.
 
-(* A committee splits into its honest and corrupted parts *)
+(* Committees split into honest and corrupt *)
 lemma honest_corrupted_split (T : committee) (C : corrset) (g : int -> vec) :
   vmap g (honest T C) + vmap g (corrupted T C) = vmap g T.
 proof.
@@ -40,7 +36,7 @@ lemma honest_or_corrupted (T : committee) (C : corrset) (i : int) :
   i \in T => i \in honest T C \/ i \in corrupted T C.
 proof. by move=> hi; rewrite /honest /corrupted !mem_filter; smt(). qed.
 
-(* An admissible corruption leaves at least one honest signer *)
+(* Admissible corruption leaves an honest signer *)
 lemma honest_nonempty (T : committee) (C : corrset) :
   admissible C => uniq T => size T = tthr => 0 < tthr => 0 < size (honest T C).
 proof.
@@ -56,13 +52,13 @@ have hcp : count (predC (fun (i : int) => i \in C)) T = count (fun i => !(i \in 
 smt().
 qed.
 
-(* The corrupted signers never learn the unmatched pairwise seed *)
+(* Honest pair terms cancel pairwise *)
 lemma mask_unmatched (T : committee) (C : corrset) (vw : view) (i j : int) :
   i \in honest T C => j \in honest T C => i <> j =>
   term T vw i j + term T vw j i = zerov.
 proof. by move=> _ _ _; exact (term_anti T vw i j). qed.
 
-(* Honest responses aggregate to the unmasked honest sum *)
+(* Masked honest responses aggregate unmasked *)
 lemma honest_agg (T : committee) (vw : view) (g : int -> vec) :
   vmap (fun i => g i + mask T vw i) T = vmap g T.
 proof. exact (mask_agg T vw g). qed.

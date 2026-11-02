@@ -77,7 +77,7 @@ rewrite cat_cons !rprod_cons ih.
 by rewrite (Rq.ComRingDflInv.mulrA (f a) (rprod f L1) (rprod f L2)).
 qed.
 
-(* A member may be pulled to the front of a ring sum *)
+(* A member moves to the sum's front *)
 lemma rmap_rem (f : 'a -> rq) (a : 'a) (L : 'a list) :
   a \in L => rmap f L = Rq.( + ) (f a) (rmap f (rem a L)).
 proof.
@@ -104,7 +104,7 @@ have hp2 : perm_eq L1 (rem a L2).
 by rewrite rmap_cons (ih (rem a L2) hp2) -(rmap_rem f a L2 ha).
 qed.
 
-(* A scalar factors out of a ring sum *)
+(* Scalars factor out of ring sums *)
 lemma rmap_mull (c : rq) (f : 'a -> rq) (L : 'a list) :
   Rq.( * ) c (rmap f L) = rmap (fun x => Rq.( * ) c (f x)) L.
 proof.
@@ -131,19 +131,19 @@ have -> : rmap (fun y => f a y) L2 = rmap (f a) L2 by apply rmap_eq.
 done.
 qed.
 
-(* A vector sum over a singleton is its only term *)
+(* Singleton vector sums are their term *)
 lemma vmap_single (f : 'a -> vec) (a : 'a) : vmap f [a] = f a.
 proof. by rewrite vmap_cons vmap_nil RqVec.Vector.ZModule.addr0. qed.
 
-(* A ring sum over a singleton is its only term *)
+(* Singleton ring sums are their term *)
 lemma rmap_single (f : 'a -> rq) (a : 'a) : rmap f [a] = f a.
 proof. by rewrite rmap_cons rmap_nil Rq.ComRingDflInv.addr0. qed.
 
-(* A ring product over a singleton is its only factor *)
+(* Singleton products are their factor *)
 lemma rprod_single (f : 'a -> rq) (a : 'a) : rprod f [a] = f a.
 proof. by rewrite rprod_cons rprod_nil Rq.ComRingDflInv.mulr1. qed.
 
-(* Vector sums over a filtered list drop the rejected terms *)
+(* Filtered vector sums drop rejected terms *)
 lemma vmap_filter_zero (f : 'a -> vec) (p : 'a -> bool) (L : 'a list) :
   (forall x, x \in L => !p x => f x = zerov) =>
   vmap f (filter p L) = vmap f L.

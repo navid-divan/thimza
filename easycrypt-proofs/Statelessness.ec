@@ -55,3 +55,11 @@ lemma nonce_recovery (c l : rq) (si ri z m : vec) :
   z = (Rq.( * ) c l) ** si + m + ri =>
   ri = z - ((Rq.( * ) c l) ** si + m).
 proof. move=> ->; by rewrite (vsubK ((Rq.( * ) c l) ** si + m) ri). qed.
+
+(* Nonce replay recovers the share *)
+lemma replay_recovers_share (c c' l : rq) (si w z z' : vec) :
+  z  = w + (Rq.( * ) c  l) ** si =>
+  z' = w + (Rq.( * ) c' l) ** si =>
+  Rq.ComRingDflInv.unit (Rq.( * ) (Rq.( + ) c (Rq.([-]) c')) l) =>
+  si = (Rq.ComRingDflInv.invr (Rq.( * ) (Rq.( + ) c (Rq.([-]) c')) l)) ** (z - z').
+proof. exact (share_recovery c c' l si w). qed.
