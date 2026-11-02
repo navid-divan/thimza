@@ -15,23 +15,86 @@ with EasyCrypt in dependency order, times each one, and prints a summary. It
 exits with status 0 only if every proof checks and no forbidden tactic is
 present.
 
-## Modelling Mechanism
+## Trusted base
 
-$R_q$ is the quotient ring obtained from the EasyCrypt library theory
-`PolyReduce.PolyReduceZp`, so its ring laws are proved rather than assumed.
-Vectors of dimension `ell` come from the library theory `Matrix`, which
-supplies the module laws, the matrix–vector product, and the uniform product
-distribution with its standard properties. The masking seeds are in the same
-vector space as the ring vectors, so their distribution is the already proven
-vector distribution rather than a separately axiomatised one.
+Every axiom of the development is in one of three places, and `check.sh` fails if an
+axiom appears anywhere else.
 
-We modeled pairwise masking function as a keyed pseudorandom function in
-`PRFSecurity.ec`, with the real/ideal experiments standard in the EasyCrypt; the games in `Assumptions.ec` for MLWE, Self-Target MSIS and
-Hint-MLWE are similarly stated as adversary experiments, which is the standard
-way an external hardness assumption is recorded in a machine-checked proof.
+* **Quantum random oracle facts.** `QROM.ec` contains the abstract theories `QROM` and
+  `QROMLazy`, and `ExtRO.ec` the abstract theory `ExtRO`. Their axioms are
+  * `pr_col`: finding a collision with `q` queries succeeds with probability at most
+    `27 (q + 2)^3 p_max` (Zhandry, CRYPTO 2019, as used in EasyPQC);
+  * `ghhm`: adaptively reprogramming `nr` points, each drawn from a distribution of the
+    adversary with largest probability at most `p`, is noticed with advantage at most
+    `nr (sqrt(q p) + q p / 2)` (Grilo, Hövelmanns, Hülsing, Majenz, ASIACRYPT 2021);
+  * `o2h_lazy`: answering commitments with a lazily sampled function and programming the
+    oracle at a committed point only when its secret is revealed is noticed with advantage
+    at most `2 q sqrt(nu p) + nu^2 p`, for `nu` secrets whose openings take each value with
+    probability at most `p` (one way to hiding of Ambainis, Hamburg, Unruh, CRYPTO 2019);
+  * `ext_sim` and `ext_sound`: the extractable simulator of Don, Fehr, Majenz, Schaffner
+    (EUROCRYPT 2022) changes the view by at most `8 l (q + l) sqrt(2 p_max)`, and an
+    accepted opening differs from the extracted one with probability at most
+    `8 l (q + 1) sqrt(2 p_max) + (40 e^2 (q + l + 1)^3 + 2) p_max`.
 
+  Each is a published theorem for quantum adversaries whose bound also holds for classical
+  ones, so the theories are consistent with the classical semantics of EasyCrypt. The other
+  axioms of these theories are their parameters (the output distribution is lossless and
+  uniform, the domain is finite, the simulator state starts lossless); they are discharged
+  when the theory is cloned, except the simulator parameter, which is part of the
+  specification of the extractor.
+* **Modelling axioms on abstract parameters.** `ChainBase.ec` states that the abstract
+  distributions of nonces, noise, keys, first messages, digests and challenges are lossless,
+  the last three uniform, and that messages and digest inputs form finite types.
+* **Hypotheses of the game chain.** The lemmas of the chain are proved in sections whose
+  `declare axiom`s become hypotheses of the closed lemmas: the adversary terminates
+  (`A_ll`) and respects the query bounds `qh0`, `qh1`, `qhc`, `qsig` (`A_bnd`), the
+  encoding of the inputs of `H1` is injective on well formed requests (`e1_inj`), and the
+  openings `rndc (A r + e')` take each value with probability at most `pw` (`reg_open`,
+  the regularity lemma of the paper).
 
-## Proof Content
+The ring is the concrete quotient `Zp[X]/(X^phi + 1)` of the EasyCrypt library, vectors and
+matrices are subtypes of functions declared with `subtype`, and every clone of a library
+theory ends with `proof *`. The only clones that keep axioms are the four instances of the
+oracle theories in `ChainBase.ec`, which keep exactly the quantum facts.
 
-Here, we have included `Params.ec` for the algebraic core $R_q = Z_q[X]/(X^{\phi}+1)$ as a proved commutative ring, the module $R_q^{\ell}$, matrices, uniform distributions, finite sums, and cancellation lemmas, `Types.ec` for the abstract types of the scheme, evaluation points, well formed committees, and the seed distribution realized as the vector distribution, `BigOps.ec` for the finite operator library of ring products, concatenation, permutation invariance, exchange of double sums, and filtered sums, `PolyList.ec` for polynomials as coefficient lists, evaluation, synthetic division, the factor theorem, and the roots lemma, `Lagrange.ec` for the Lagrange basis, interpolation identities, and reconstruction coefficients as a construction, `Sharing.ec` for Shamir sharing over $R_q$, the reconstruction theorem, and hiding of a single share, `ShamirLagrange.ec` for the connection discharging the reconstruction hypothesis for all well formed committees, `Masking.ec` for antisymmetric masks, and the zero sum theorem, `Assumptions.ec` for MLWE, SelfTarget MSIS, and HintMLWE as adversary experiments, `Bounds.ec` for the norm and verification bound, with norm properties carried as an explicit `isNorm` hypothesis, `ROM.ec` for the challenge random oracle, freshness, determinism on repeats, and programmability, `PRFSecurity.ec` for the masking function as a keyed pseudorandom function with real and ideal experiments, `KeyGen.ec` for key generation, the coefficient distribution, and correctness of the resulting shares, `Protocol.ec` for the three signing rounds as procedures, the commitment check, and the honest opening lemma, `Combine.ec` for the combiner, the hint, and the aggregation identity, `Verify.ec` for the two verifiers as separate modules with a proof of behavioural equality, `Interchange.ec` for interchangeability in both directions, with acceptance and rejection transfer, `Correctness.ec` for the theorem that an honest signature verifies inside the bound, `ViewPartition.ec` for the view-partition lemma and the class decomposition of a committee, `MaskAlgebra.ec` for the mask algebra of pairs, cons, class residues, and linear masking cost, `Simulator.ec` for the joint simulator over a signer list, with the closing share and aggregate agreement, `Corruption.ec` for static corruption, the honest/corrupted split, and the bounded corruption oracle, `Statelessness.ec` for the share, mask, and nonce recovery attacks behind the statelessness result, `Hierarchy.ec` for the TS-UF-0 and TS-UF-CA oracle interfaces and the singleton committee, `EUFCMA.ec` for the proof that the singleton protocol computes exactly the plain Fiat–Shamir signature, `GameHops.ec` for the hop sequence with explicit probability equalities and the advantage bound, and `Security.ec` for the unforgeability experiment, the oracle simulation, and the reduction.
+## Modelling of the quantum random oracle
+
+We follow EasyPQC (Barbosa et al., ACM CCS 2021) as
+every random oracle is a function sampled in one go from `dfun`; adversaries reach an
+oracle only through its procedure, and no proof step inspects or logs one of their queries;
+query counters are classical and every fact assumes a query bound given as a Hoare
+judgement. The challenger's own classical evaluations are logged where a collision bound
+needs them. The lemmas `dfh_reprog` (reprogramming one point keeps the oracle uniform) and
+`dfh_split` (oracles on the two parts of a partition combine to one oracle) are proved
+from the definition of `dfun`.
+
+## The game chain
+
+`ChainBase.ec` instantiates the oracles (`H0H` for first messages of honest parties, with
+lazy commitments, `H0C` for corrupt indices, with extraction, `H1O` for digests and `HCO`
+for challenges) and defines the adversary interface with query counters. The chain starts
+from the game `G0` of `ChainGame.ec`, which is TS-UF-4 in the opening semantics played
+with Thimza: corruption, key generation with Shamir shares, pair seeds, the three signing
+oracles with all their checks and erasure, and verification of the forgery.
+
+| Hop | File | Lemma | Cost |
+|---|---|---|---|
+| G0 to G1: random functions for honest pairs | `ChainGame.ec` | `hop_prf` | PRF advantage of `B1` |
+| collisions of digests and first messages | `ChainCol.ec` | `col1_bound`, `col0_bound` | `27 (qh1 + 2 qsig + 2)^3 p_max`, `27 (qh0 + (t + 1) qsig + 2)^3 p_max` |
+| G1 to G1s: responses without honest pair values | `ChainSim.ec` | `o3_sim`, `run_sim`, `g1_g1s` | digest collision bound |
+| G1s to G1t: unused pair values dropped | `ChainDead.ec` | `g1s_g1t` | 0 |
+| G1t to lazy first messages | `ChainLazy.ec` | `g1t_lazy0`, `bl_cnt`, `g1t_lazy` | `2 (qh0 + t qsig) sqrt(qsig pw) + qsig^2 pw` |
+
+In `G1s` the third round never reads an honest pair value: a response is uniform while
+another honest member of the request has not responded, and otherwise it closes the sum,
+exactly as in the view partition lemma of the paper; a second response of a party under the
+same request reuses the stored offset. The invariant of `o3_sim` relates the stored offsets
+to the masks of the first game, and `fresh_key` shows that the mask of the designated
+partner is fresh unless two digests collide. This is the hop to `G7` of the paper, which
+needs only distinct digests and so comes earlier in the development.
+
+The hops that use extraction (`ext_sim`, `ext_sound`), reprogramming (`ghhm`), the hint
+embedding, the Shamir translation and HintMLWE are proved in our paper; their algebraic
+cores are mechanized (`hint_commit`, `honest_aggregate`, `final_reduction`), but their
+composition with the chain is not yet mechanized.
 
