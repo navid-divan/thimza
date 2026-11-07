@@ -1,0 +1,16 @@
+{
+  "record": "runner_end",
+  "test": "thimza_peer",
+  "title": "Distributed Thimza signing between the node and a server node",
+  "status": "ok",
+  "error": null,
+  "start": "2026-11-05T09:59:19.429129Z",
+  "end": "2026-11-05T09:59:19.433207Z",
+  "wall_s": 0.004078,
+  "node_id": null,
+  "result": {
+    "mode": "client",
+    "skipped": "no server node configured",
+    "started": "2026-11-05T09:59:19.433183Z"
+  }
+}

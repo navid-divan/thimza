@@ -1,0 +1,112 @@
+{
+  "experiment": {
+    "title": "Thimza lattice threshold signatures on a low-Earth-orbit access link",
+    "version": "1.0.0",
+    "contact": "Anonymous"
+  },
+  "start": "2026-11-05T09:52:13.726164Z",
+  "budget_s": 1560.0,
+  "tests_planned": [
+    "sysinfo",
+    "thimza_selftest",
+    "thimza_link",
+    "thimza_datagram",
+    "thimza_peer",
+    "thimza_time",
+    "thimza_space"
+  ],
+  "node": {
+    "collected_at": "2026-11-05T09:52:13.726194Z",
+    "cpu_model": "11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz",
+    "cpu_count": 8,
+    "mem_total_kb": 31970412,
+    "load_average": [
+      1.12158203125,
+      0.619140625,
+      0.421875
+    ],
+    "python": {
+      "version": "3.12.16",
+      "implementation": "CPython",
+      "executable": "/usr/local/bin/python"
+    },
+    "env": {
+      "LEOTEST_SERVER": null,
+      "LEOTEST_JOBID": null,
+      "LEOTEST_NODEID": null,
+      "LEOTEST_SERVERIP": null,
+      "LEOTEST_SERVER_NODEID": null
+    },
+    "server_mode": false
+  },
+  "end": "2026-11-05T10:02:30.676757Z",
+  "wall_s": 616.950593,
+  "results": [
+    {
+      "test": "sysinfo",
+      "status": "ok",
+      "error": null,
+      "wall_s": 0.173044
+    },
+    {
+      "test": "thimza_selftest",
+      "status": "ok",
+      "error": null,
+      "wall_s": 6.283102
+    },
+    {
+      "test": "thimza_link",
+      "status": "ok",
+      "error": null,
+      "wall_s": 296.025525
+    },
+    {
+      "test": "thimza_datagram",
+      "status": "ok",
+      "error": null,
+      "wall_s": 115.04666
+    },
+    {
+      "test": "thimza_peer",
+      "status": "ok",
+      "error": null,
+      "wall_s": 0.004078
+    },
+    {
+      "test": "thimza_time",
+      "status": "ok",
+      "error": null,
+      "wall_s": 89.864178
+    },
+    {
+      "test": "thimza_space",
+      "status": "ok",
+      "error": null,
+      "wall_s": 97.334722
+    }
+  ],
+  "node_after": {
+    "collected_at": "2026-11-05T10:02:30.676772Z",
+    "cpu_model": "11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz",
+    "cpu_count": 8,
+    "mem_total_kb": 31970412,
+    "load_average": [
+      1.3330078125,
+      0.85205078125,
+      0.5673828125
+    ],
+    "python": {
+      "version": "3.12.16",
+      "implementation": "CPython",
+      "executable": "/usr/local/bin/python"
+    },
+    "env": {
+      "LEOTEST_SERVER": null,
+      "LEOTEST_JOBID": null,
+      "LEOTEST_NODEID": null,
+      "LEOTEST_SERVERIP": null,
+      "LEOTEST_SERVER_NODEID": null
+    },
+    "server_mode": false
+  }
+}

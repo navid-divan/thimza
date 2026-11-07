@@ -1,0 +1,1330 @@
+{
+  "record": "runner_end",
+  "test": "thimza_space",
+  "title": "Thimza space cost with real encodings",
+  "status": "ok",
+  "error": null,
+  "start": "2026-11-05T10:00:53.334920Z",
+  "end": "2026-11-05T10:02:30.669642Z",
+  "wall_s": 97.334722,
+  "node_id": null,
+  "result": {
+    "started": "2026-11-05T10:00:53.338842Z",
+    "message_bytes": 32,
+    "levels": {
+      "128": {
+        "name": "I",
+        "thresholds": {
+          "2": {
+            "layout": {
+              "level": 128,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 4,
+              "k": 5,
+              "omega": 19,
+              "nu_t": 37,
+              "nu_w": 40,
+              "nu_c": 36,
+              "hbytes": 80,
+              "seed_bytes": 32,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 12,
+              "q_w": 510,
+              "bits_h_fixed": 9
+            },
+            "bytes": {
+              "cmt": 80,
+              "wbar": 4160,
+              "z": 12544,
+              "request": 200,
+              "openings": 8320,
+              "vk": 3872,
+              "sk": 12608
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 80,
+              "wbar": 4160,
+              "z": 12544,
+              "request": 200,
+              "openings": 8320,
+              "vk": 3872,
+              "sk": 12608
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 3872,
+              "sig": 13152,
+              "r1": 80,
+              "r2": 4160,
+              "r3": 12544,
+              "total": 16784,
+              "online": 16784,
+              "sk": 12800
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 16784,
+              "received_bytes": 8520,
+              "received_over_sent": 0.5076263107721639,
+              "paper_counts_sent_only": 16784
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 16821,
+                "numpy_bytes": 36976
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 16907,
+                "numpy_bytes": 37072
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 1012777,
+            "signature": {
+              "trials": 30,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 30,
+                "unit": "bytes",
+                "min": 10893,
+                "max": 10907,
+                "mean": 10899.333333333334,
+                "median": 10898.0,
+                "stdev": 4.261563039570092,
+                "p25": 10896.0,
+                "p75": 10903.75,
+                "p90": 10905.0,
+                "p95": 10905.0,
+                "p99": 10906.42,
+                "iqr": 7.75,
+                "cv": 0.0003909930001440539
+              },
+              "fixed_bytes": 15456,
+              "paper_model_bytes": 13152,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  37,
+                  0
+                ]
+              ]
+            }
+          },
+          "16": {
+            "layout": {
+              "level": 128,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 4,
+              "k": 5,
+              "omega": 19,
+              "nu_t": 37,
+              "nu_w": 40,
+              "nu_c": 36,
+              "hbytes": 80,
+              "seed_bytes": 32,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 12,
+              "q_w": 510,
+              "bits_h_fixed": 9
+            },
+            "bytes": {
+              "cmt": 80,
+              "wbar": 4160,
+              "z": 12544,
+              "request": 1348,
+              "openings": 66560,
+              "vk": 3872,
+              "sk": 13056
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 80,
+              "wbar": 4160,
+              "z": 12544,
+              "request": 1348,
+              "openings": 66560,
+              "vk": 3872,
+              "sk": 13056
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 3872,
+              "sig": 13152,
+              "r1": 80,
+              "r2": 4160,
+              "r3": 12544,
+              "total": 16784,
+              "online": 16784,
+              "sk": 13056
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 16784,
+              "received_bytes": 67908,
+              "received_over_sent": 4.045996186844614,
+              "paper_counts_sent_only": 16784
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 16821,
+                "numpy_bytes": 36976
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 16935,
+                "numpy_bytes": 37184
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 1074619,
+            "signature": {
+              "trials": 30,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 30,
+                "unit": "bytes",
+                "min": 11330,
+                "max": 11359,
+                "mean": 11345.3,
+                "median": 11345.0,
+                "stdev": 6.914003780434465,
+                "p25": 11340.0,
+                "p75": 11349.0,
+                "p90": 11355.1,
+                "p95": 11356.55,
+                "p99": 11358.42,
+                "iqr": 9.0,
+                "cv": 0.0006094156858288864
+              },
+              "fixed_bytes": 15456,
+              "paper_model_bytes": 13152,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  38,
+                  0
+                ]
+              ]
+            }
+          },
+          "128": {
+            "layout": {
+              "level": 128,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 4,
+              "k": 5,
+              "omega": 19,
+              "nu_t": 37,
+              "nu_w": 40,
+              "nu_c": 36,
+              "hbytes": 80,
+              "seed_bytes": 32,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 12,
+              "q_w": 510,
+              "bits_h_fixed": 9
+            },
+            "bytes": {
+              "cmt": 80,
+              "wbar": 4160,
+              "z": 12544,
+              "request": 10532,
+              "openings": 532480,
+              "vk": 3872,
+              "sk": 16640
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 80,
+              "wbar": 4160,
+              "z": 12544,
+              "request": 10532,
+              "openings": 532480,
+              "vk": 3872,
+              "sk": 16640
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 3872,
+              "sig": 13152,
+              "r1": 80,
+              "r2": 4160,
+              "r3": 12544,
+              "total": 16784,
+              "online": 16784,
+              "sk": 16640
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 16784,
+              "received_bytes": 543012,
+              "received_over_sent": 32.352955195424215,
+              "paper_counts_sent_only": 16784
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 16821,
+                "numpy_bytes": 36976
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 17159,
+                "numpy_bytes": 38080
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 1565603,
+            "signature": {
+              "trials": 15,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 15,
+                "unit": "bytes",
+                "min": 11966,
+                "max": 11979,
+                "mean": 11973.4,
+                "median": 11973,
+                "stdev": 4.014260294784796,
+                "p25": 11971.5,
+                "p75": 11977.0,
+                "p90": 11978.0,
+                "p95": 11978.3,
+                "p99": 11978.86,
+                "iqr": 5.5,
+                "cv": 0.0003352648616754469
+              },
+              "fixed_bytes": 15456,
+              "paper_model_bytes": 13152,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  40,
+                  0
+                ]
+              ]
+            }
+          },
+          "1024": {
+            "layout": {
+              "level": 128,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 4,
+              "k": 5,
+              "omega": 19,
+              "nu_t": 37,
+              "nu_w": 40,
+              "nu_c": 36,
+              "hbytes": 80,
+              "seed_bytes": 32,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 12,
+              "q_w": 510,
+              "bits_h_fixed": 9
+            },
+            "bytes": {
+              "cmt": 80,
+              "wbar": 4160,
+              "z": 12544,
+              "request": 84004,
+              "openings": 4259840,
+              "vk": 3872,
+              "sk": 45312
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 80,
+              "wbar": 4160,
+              "z": 12544,
+              "request": 84004,
+              "openings": 4259840,
+              "vk": 3872,
+              "sk": 45312
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 3872,
+              "sig": 13152,
+              "r1": 80,
+              "r2": 4160,
+              "r3": 12544,
+              "total": 16784,
+              "online": 16784,
+              "sk": 45312
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 16784,
+              "received_bytes": 4343844,
+              "received_over_sent": 258.808627264061,
+              "paper_counts_sent_only": 16784
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 16821,
+                "numpy_bytes": 36976
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 18951,
+                "numpy_bytes": 45248
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 8945980,
+            "signature": {
+              "trials": 8,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 8,
+                "unit": "bytes",
+                "min": 12726,
+                "max": 12748,
+                "mean": 12736.25,
+                "median": 12735.0,
+                "stdev": 7.648529270389178,
+                "p25": 12730.75,
+                "p75": 12742.25,
+                "p90": 12744.5,
+                "p95": 12746.25,
+                "p99": 12747.65,
+                "iqr": 11.5,
+                "cv": 0.0006005322815105841
+              },
+              "fixed_bytes": 15456,
+              "paper_model_bytes": 13152,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  41,
+                  1
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "192": {
+        "name": "III",
+        "thresholds": {
+          "2": {
+            "layout": {
+              "level": 192,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 6,
+              "k": 7,
+              "omega": 31,
+              "nu_t": 36,
+              "nu_w": 40,
+              "nu_c": 36,
+              "hbytes": 120,
+              "seed_bytes": 48,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 13,
+              "q_w": 510,
+              "bits_h_fixed": 9
+            },
+            "bytes": {
+              "cmt": 120,
+              "wbar": 5824,
+              "z": 18816,
+              "request": 280,
+              "openings": 11648,
+              "vk": 5856,
+              "sk": 18912
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 120,
+              "wbar": 5824,
+              "z": 18816,
+              "request": 280,
+              "openings": 11648,
+              "vk": 5856,
+              "sk": 18912
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 5856,
+              "sig": 19568,
+              "r1": 120,
+              "r2": 5824,
+              "r3": 18816,
+              "total": 24760,
+              "online": 24760,
+              "sk": 19200
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 24760,
+              "received_bytes": 11928,
+              "received_over_sent": 0.4817447495961228,
+              "paper_counts_sent_only": 24760
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 24797,
+                "numpy_bytes": 53400
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 24923,
+                "numpy_bytes": 53536
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 1462553,
+            "signature": {
+              "trials": 30,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 30,
+                "unit": "bytes",
+                "min": 16234,
+                "max": 16260,
+                "mean": 16248.1,
+                "median": 16248.5,
+                "stdev": 7.5171069269848845,
+                "p25": 16242.0,
+                "p75": 16254.0,
+                "p90": 16257.2,
+                "p95": 16259.55,
+                "p99": 16260.0,
+                "iqr": 12.0,
+                "cv": 0.00046264528941752475
+              },
+              "fixed_bytes": 22880,
+              "paper_model_bytes": 19568,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  37,
+                  0
+                ]
+              ]
+            }
+          },
+          "16": {
+            "layout": {
+              "level": 192,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 6,
+              "k": 7,
+              "omega": 31,
+              "nu_t": 36,
+              "nu_w": 40,
+              "nu_c": 36,
+              "hbytes": 120,
+              "seed_bytes": 48,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 13,
+              "q_w": 510,
+              "bits_h_fixed": 9
+            },
+            "bytes": {
+              "cmt": 120,
+              "wbar": 5824,
+              "z": 18816,
+              "request": 1988,
+              "openings": 93184,
+              "vk": 5856,
+              "sk": 19584
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 120,
+              "wbar": 5824,
+              "z": 18816,
+              "request": 1988,
+              "openings": 93184,
+              "vk": 5856,
+              "sk": 19584
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 5856,
+              "sig": 19568,
+              "r1": 120,
+              "r2": 5824,
+              "r3": 18816,
+              "total": 24760,
+              "online": 24760,
+              "sk": 19584
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 24760,
+              "received_bytes": 95172,
+              "received_over_sent": 3.8437802907915994,
+              "paper_counts_sent_only": 24760
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 24797,
+                "numpy_bytes": 53400
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 24951,
+                "numpy_bytes": 53648
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 1548355,
+            "signature": {
+              "trials": 30,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 30,
+                "unit": "bytes",
+                "min": 16889,
+                "max": 16936,
+                "mean": 16913.333333333332,
+                "median": 16913.0,
+                "stdev": 9.267419137562753,
+                "p25": 16908.25,
+                "p75": 16918.0,
+                "p90": 16924.3,
+                "p95": 16928.65,
+                "p99": 16934.26,
+                "iqr": 9.75,
+                "cv": 0.0005479356998953145
+              },
+              "fixed_bytes": 22880,
+              "paper_model_bytes": 19568,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  38,
+                  0
+                ]
+              ]
+            }
+          },
+          "128": {
+            "layout": {
+              "level": 192,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 6,
+              "k": 7,
+              "omega": 31,
+              "nu_t": 36,
+              "nu_w": 40,
+              "nu_c": 36,
+              "hbytes": 120,
+              "seed_bytes": 48,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 13,
+              "q_w": 510,
+              "bits_h_fixed": 9
+            },
+            "bytes": {
+              "cmt": 120,
+              "wbar": 5824,
+              "z": 18816,
+              "request": 15652,
+              "openings": 745472,
+              "vk": 5856,
+              "sk": 24960
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 120,
+              "wbar": 5824,
+              "z": 18816,
+              "request": 15652,
+              "openings": 745472,
+              "vk": 5856,
+              "sk": 24960
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 5856,
+              "sig": 19568,
+              "r1": 120,
+              "r2": 5824,
+              "r3": 18816,
+              "total": 24760,
+              "online": 24760,
+              "sk": 24960
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 24760,
+              "received_bytes": 761124,
+              "received_over_sent": 30.74006462035541,
+              "paper_counts_sent_only": 24760
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 24797,
+                "numpy_bytes": 53400
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 25175,
+                "numpy_bytes": 54544
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 2235027,
+            "signature": {
+              "trials": 15,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 15,
+                "unit": "bytes",
+                "min": 17825,
+                "max": 17849,
+                "mean": 17837.066666666666,
+                "median": 17837,
+                "stdev": 6.829208976015834,
+                "p25": 17833.5,
+                "p75": 17841.5,
+                "p90": 17844.8,
+                "p95": 17846.9,
+                "p99": 17848.58,
+                "iqr": 8.0,
+                "cv": 0.00038286614630297027
+              },
+              "fixed_bytes": 22880,
+              "paper_model_bytes": 19568,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  40,
+                  0
+                ]
+              ]
+            }
+          },
+          "1024": {
+            "layout": {
+              "level": 192,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 6,
+              "k": 7,
+              "omega": 31,
+              "nu_t": 36,
+              "nu_w": 40,
+              "nu_c": 36,
+              "hbytes": 120,
+              "seed_bytes": 48,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 13,
+              "q_w": 510,
+              "bits_h_fixed": 9
+            },
+            "bytes": {
+              "cmt": 120,
+              "wbar": 5824,
+              "z": 18816,
+              "request": 124964,
+              "openings": 5963776,
+              "vk": 5856,
+              "sk": 67968
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 120,
+              "wbar": 5824,
+              "z": 18816,
+              "request": 124964,
+              "openings": 5963776,
+              "vk": 5856,
+              "sk": 67968
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 5856,
+              "sig": 19568,
+              "r1": 120,
+              "r2": 5824,
+              "r3": 18816,
+              "total": 24760,
+              "online": 24760,
+              "sk": 67968
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 24760,
+              "received_bytes": 6088740,
+              "received_over_sent": 245.9103392568659,
+              "paper_counts_sent_only": 24760
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 24797,
+                "numpy_bytes": 53400
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 26967,
+                "numpy_bytes": 61712
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 12453860,
+            "signature": {
+              "trials": 8,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 8,
+                "unit": "bytes",
+                "min": 18933,
+                "max": 18962,
+                "mean": 18940.125,
+                "median": 18936.0,
+                "stdev": 9.920217451533725,
+                "p25": 18934.0,
+                "p75": 18941.0,
+                "p90": 18951.5,
+                "p95": 18956.75,
+                "p99": 18960.95,
+                "iqr": 7.0,
+                "cv": 0.0005237672640245894
+              },
+              "fixed_bytes": 22880,
+              "paper_model_bytes": 19568,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  41,
+                  1
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "256": {
+        "name": "V",
+        "thresholds": {
+          "2": {
+            "layout": {
+              "level": 256,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 7,
+              "k": 8,
+              "omega": 44,
+              "nu_t": 35,
+              "nu_w": 41,
+              "nu_c": 36,
+              "hbytes": 160,
+              "seed_bytes": 64,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 14,
+              "q_w": 255,
+              "bits_h_fixed": 8
+            },
+            "bytes": {
+              "cmt": 160,
+              "wbar": 6656,
+              "z": 21952,
+              "request": 360,
+              "openings": 13312,
+              "vk": 7200,
+              "sk": 22080
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 160,
+              "wbar": 6656,
+              "z": 21952,
+              "request": 360,
+              "openings": 13312,
+              "vk": 7200,
+              "sk": 22080
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 7200,
+              "sig": 22272,
+              "r1": 160,
+              "r2": 6656,
+              "r3": 21952,
+              "total": 28768,
+              "online": 28768,
+              "sk": 22464
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 28768,
+              "received_bytes": 13672,
+              "received_over_sent": 0.47525027808676307,
+              "paper_counts_sent_only": 28768
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 28805,
+                "numpy_bytes": 61632
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 28971,
+                "numpy_bytes": 61808
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 1703261,
+            "signature": {
+              "trials": 30,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 30,
+                "unit": "bytes",
+                "min": 18866,
+                "max": 18892,
+                "mean": 18880.4,
+                "median": 18881.0,
+                "stdev": 6.584202619750628,
+                "p25": 18877.25,
+                "p75": 18884.0,
+                "p90": 18890.1,
+                "p95": 18891.0,
+                "p99": 18891.71,
+                "iqr": 6.75,
+                "cv": 0.0003487321571444793
+              },
+              "fixed_bytes": 26080,
+              "paper_model_bytes": 22272,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  37,
+                  0
+                ]
+              ]
+            }
+          },
+          "16": {
+            "layout": {
+              "level": 256,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 7,
+              "k": 8,
+              "omega": 44,
+              "nu_t": 35,
+              "nu_w": 41,
+              "nu_c": 36,
+              "hbytes": 160,
+              "seed_bytes": 64,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 14,
+              "q_w": 255,
+              "bits_h_fixed": 8
+            },
+            "bytes": {
+              "cmt": 160,
+              "wbar": 6656,
+              "z": 21952,
+              "request": 2628,
+              "openings": 106496,
+              "vk": 7200,
+              "sk": 22976
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 160,
+              "wbar": 6656,
+              "z": 21952,
+              "request": 2628,
+              "openings": 106496,
+              "vk": 7200,
+              "sk": 22976
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 7200,
+              "sig": 22272,
+              "r1": 160,
+              "r2": 6656,
+              "r3": 21952,
+              "total": 28768,
+              "online": 28768,
+              "sk": 22976
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 28768,
+              "received_bytes": 109124,
+              "received_over_sent": 3.7932424916573972,
+              "paper_counts_sent_only": 28768
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 28805,
+                "numpy_bytes": 61632
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 28999,
+                "numpy_bytes": 61920
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 1801831,
+            "signature": {
+              "trials": 30,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 30,
+                "unit": "bytes",
+                "min": 19581,
+                "max": 19612,
+                "mean": 19596.0,
+                "median": 19594.5,
+                "stdev": 9.388180389962837,
+                "p25": 19588.25,
+                "p75": 19604.25,
+                "p90": 19610.0,
+                "p95": 19610.55,
+                "p99": 19611.71,
+                "iqr": 16.0,
+                "cv": 0.0004790865681752826
+              },
+              "fixed_bytes": 26080,
+              "paper_model_bytes": 22272,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  38,
+                  0
+                ]
+              ]
+            }
+          },
+          "128": {
+            "layout": {
+              "level": 256,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 7,
+              "k": 8,
+              "omega": 44,
+              "nu_t": 35,
+              "nu_w": 41,
+              "nu_c": 36,
+              "hbytes": 160,
+              "seed_bytes": 64,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 14,
+              "q_w": 255,
+              "bits_h_fixed": 8
+            },
+            "bytes": {
+              "cmt": 160,
+              "wbar": 6656,
+              "z": 21952,
+              "request": 20772,
+              "openings": 851968,
+              "vk": 7200,
+              "sk": 30144
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 160,
+              "wbar": 6656,
+              "z": 21952,
+              "request": 20772,
+              "openings": 851968,
+              "vk": 7200,
+              "sk": 30144
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 7200,
+              "sig": 22272,
+              "r1": 160,
+              "r2": 6656,
+              "r3": 21952,
+              "total": 28768,
+              "online": 28768,
+              "sk": 30144
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 28768,
+              "received_bytes": 872740,
+              "received_over_sent": 30.33718020022247,
+              "paper_counts_sent_only": 28768
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 28805,
+                "numpy_bytes": 61632
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 29223,
+                "numpy_bytes": 62816
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 2590647,
+            "signature": {
+              "trials": 15,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 15,
+                "unit": "bytes",
+                "min": 20474,
+                "max": 20489,
+                "mean": 20479.133333333335,
+                "median": 20477,
+                "stdev": 4.926120853842978,
+                "p25": 20475.5,
+                "p75": 20482.0,
+                "p90": 20486.2,
+                "p95": 20487.6,
+                "p99": 20488.72,
+                "iqr": 6.5,
+                "cv": 0.00024054342406301261
+              },
+              "fixed_bytes": 26080,
+              "paper_model_bytes": 22272,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  40,
+                  0
+                ]
+              ]
+            }
+          },
+          "1024": {
+            "layout": {
+              "level": 256,
+              "q": 560750930165761,
+              "phi": 512,
+              "ell": 7,
+              "k": 8,
+              "omega": 44,
+              "nu_t": 35,
+              "nu_w": 41,
+              "nu_c": 36,
+              "hbytes": 160,
+              "seed_bytes": 64,
+              "bits_q": 49,
+              "bits_wbar": 13,
+              "bits_t": 14,
+              "q_w": 255,
+              "bits_h_fixed": 8
+            },
+            "bytes": {
+              "cmt": 160,
+              "wbar": 6656,
+              "z": 21952,
+              "request": 165924,
+              "openings": 6815744,
+              "vk": 7200,
+              "sk": 87488
+            },
+            "bytes_predicted_by_codec": {
+              "cmt": 160,
+              "wbar": 6656,
+              "z": 21952,
+              "request": 165924,
+              "openings": 6815744,
+              "vk": 7200,
+              "sk": 87488
+            },
+            "codec_matches_prediction": true,
+            "paper_model_bytes": {
+              "vk": 7200,
+              "sig": 22272,
+              "r1": 160,
+              "r2": 6656,
+              "r3": 21952,
+              "total": 28768,
+              "online": 28768,
+              "sk": 87488
+            },
+            "paper_model_matches": {
+              "r1": true,
+              "r2": true,
+              "r3": true,
+              "vk": true
+            },
+            "per_signer": {
+              "sent_bytes": 28768,
+              "received_bytes": 6981668,
+              "received_over_sent": 242.68868186874306,
+              "paper_counts_sent_only": 28768
+            },
+            "state_bytes": {
+              "after_round1": {
+                "phase": 1,
+                "bytes": 28805,
+                "numpy_bytes": 61632
+              },
+              "after_round2": {
+                "phase": 2,
+                "bytes": 31015,
+                "numpy_bytes": 69984
+              },
+              "after_round3": {
+                "phase": 0,
+                "bytes": 0
+              }
+            },
+            "python_heap_peak_bytes_one_signer_session": 14248752,
+            "signature": {
+              "trials": 8,
+              "all_verify": true,
+              "compact_bytes": {
+                "n": 8,
+                "unit": "bytes",
+                "min": 21614,
+                "max": 21650,
+                "mean": 21635.25,
+                "median": 21639.0,
+                "stdev": 13.220654835737687,
+                "p25": 21625.0,
+                "p75": 21645.5,
+                "p90": 21647.9,
+                "p95": 21648.95,
+                "p99": 21649.79,
+                "iqr": 20.5,
+                "cv": 0.0006110701210172144
+              },
+              "fixed_bytes": 26080,
+              "paper_model_bytes": 22272,
+              "fraction_within_paper_model": 1.0,
+              "fraction_z_fits_paper_budget": 1.0,
+              "rice_parameters": [
+                [
+                  41,
+                  1
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "max_rss_kb": 230908,
+    "finished": "2026-11-05T10:02:30.669616Z"
+  }
+}
