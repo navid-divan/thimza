@@ -1,0 +1,100 @@
+docker:
+  image: 'thimza-ntn:local'
+  deploy:
+  execute:
+    name: "thimza-ntn"
+  finish:
+
+experiment:
+  title: "Local smoke test of the Thimza LEO experiment"
+  version: "1.0.0"
+
+schedule:
+  budget_s: 600
+  reserve_s: 10
+  inter_test_sleep_s: 0
+  order:
+    - sysinfo
+    - thimza_selftest
+    - thimza_space
+    - thimza_time
+    - thimza_datagram
+    - thimza_link
+    - thimza_peer
+
+tests:
+
+  sysinfo:
+    entry_point: "SysInfoClient"
+    runner: "sysinfo"
+    budget_s: 30
+    resolve:
+      - "speed.cloudflare.com"
+
+  thimza_selftest:
+    entry_point: "ThimzaSelfTestClient"
+    runner: "thimza_selftest"
+    budget_s: 120
+    levels: [128, 192, 256]
+    honest_pairs: [[2, 3], [3, 5]]
+    mulmod_samples: 5000
+
+  thimza_space:
+    entry_point: "ThimzaSpaceClient"
+    runner: "thimza_space"
+    budget_s: 120
+    levels: [128, 192, 256]
+    thresholds: [2, 128, 1024]
+    signature_trials: {2: 3, 128: 2, 1024: 1}
+
+  thimza_time:
+    entry_point: "ThimzaTimeClient"
+    runner: "thimza_time"
+    budget_s: 120
+    levels: [128, 256]
+    thresholds: [2, 128, 1024]
+    reps: 3
+    reps_large: 2
+    keygen_reps: 1
+    keygen_reps_large: 1
+    combine_reps: 2
+    verify_reps: 3
+    traccoon_thresholds: [16, 1024]
+
+  thimza_datagram:
+    entry_point: "ThimzaDatagramClient"
+    runner: "thimza_datagram"
+    budget_s: 90
+    levels: [128]
+    targets:
+      - "1.1.1.1"
+    count: 3
+    interval: 0.2
+    baseline_payload_bytes: [56]
+
+  thimza_link:
+    entry_point: "ThimzaLinkClient"
+    runner: "thimza_link"
+    budget_s: 150
+    levels: [128, 256]
+    thresholds: [2, 1024]
+    sessions: {2: 3, 1024: 1}
+    honest_max_t: 16
+    max_gap_s: 0.2
+    endpoint:
+      host: "speed.cloudflare.com"
+      port: 443
+      up_path: "/__up"
+      down_path: "/__down?bytes={n}"
+
+  thimza_peer:
+    entry_point: "ThimzaPeerClient"
+    runner: "thimza_peer"
+    budget_s: 60
+    levels: [128, 256]
+    thresholds: [2, 4]
+    sessions: 2
+    port: 45401
+
+artifacts:
+  path_local: "./artifacts_local"

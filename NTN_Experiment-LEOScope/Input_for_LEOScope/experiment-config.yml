@@ -1,0 +1,127 @@
+docker:
+  image: 'anonymous/thimza-ntn:1.0.0'
+  deploy:
+  execute:
+    name: "thimza-ntn"
+  finish:
+
+cloud_config:
+  connection_string: AZURE_BLOB_CONNECTION_STRING
+  container: thimzantn
+  weather_apikey: "OPENWEATHER_API_KEY"
+
+experiment:
+  title: "Thimza lattice threshold signatures on a low-Earth-orbit access link"
+  version: "1.0.0"
+  contact: "Anonymous"
+
+schedule:
+  budget_s: 1560
+  reserve_s: 30
+  inter_test_sleep_s: 2
+  order:
+    - sysinfo
+    - thimza_selftest
+    - thimza_link
+    - thimza_datagram
+    - thimza_peer
+    - thimza_time
+    - thimza_space
+
+tests:
+
+  sysinfo:
+    entry_point: "SysInfoClient"
+    runner: "sysinfo"
+    budget_s: 30
+    resolve:
+      - "speed.cloudflare.com"
+      - "8.8.8.8"
+
+  thimza_selftest:
+    entry_point: "ThimzaSelfTestClient"
+    runner: "thimza_selftest"
+    budget_s: 150
+    levels: [128, 192, 256]
+    honest_pairs: [[2, 3], [3, 5], [5, 8], [7, 10]]
+    mulmod_samples: 20000
+
+  thimza_link:
+    entry_point: "ThimzaLinkClient"
+    runner: "thimza_link"
+    budget_s: 660
+    levels: [128, 192, 256]
+    thresholds: [2, 16, 128, 1024]
+    sessions:
+      2: 30
+      16: 30
+      128: 12
+      1024: 5
+    honest_max_t: 16
+    message_bytes: 32
+    include_signature_leg: true
+    max_gap_s: 1.0
+    timeout_s: 30
+    epoch_period_s: 15.0
+    phase_bins: 15
+    endpoint:
+      host: "speed.cloudflare.com"
+      port: 443
+      up_path: "/__up"
+      down_path: "/__down?bytes={n}"
+
+  thimza_datagram:
+    entry_point: "ThimzaDatagramClient"
+    runner: "thimza_datagram"
+    budget_s: 240
+    levels: [128, 192, 256]
+    targets:
+      - "8.8.8.8"
+    count: 20
+    interval: 0.2
+    reply_timeout_s: 3
+    run_slack_s: 12
+    baseline_payload_bytes: [56, 1024, 1472]
+
+  thimza_peer:
+    entry_point: "ThimzaPeerClient"
+    runner: "thimza_peer"
+    budget_s: 240
+    levels: [128, 192, 256]
+    thresholds: [2, 4, 8, 16]
+    sessions: 15
+    port: 45401
+    connect_wait_s: 60
+
+  thimza_time:
+    entry_point: "ThimzaTimeClient"
+    runner: "thimza_time"
+    budget_s: 300
+    levels: [128, 192, 256]
+    thresholds: [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
+    reps: 50
+    reps_large: 25
+    large_threshold: 512
+    keygen_reps: 3
+    keygen_reps_large: 2
+    combine_reps: 10
+    verify_reps: 30
+    include_traccoon: true
+    traccoon_thresholds: [16, 128, 1024]
+    message_bytes: 32
+
+  thimza_space:
+    entry_point: "ThimzaSpaceClient"
+    runner: "thimza_space"
+    budget_s: 240
+    levels: [128, 192, 256]
+    thresholds: [2, 16, 128, 1024]
+    signature_trials:
+      2: 30
+      16: 30
+      128: 15
+      1024: 8
+    message_bytes: 32
+
+artifacts:
+  path_local: "/artifacts"
