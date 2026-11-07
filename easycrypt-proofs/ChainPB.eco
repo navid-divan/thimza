@@ -1,0 +1,387 @@
+{
+  "version": 3,
+  "echash": "r2025.03",
+  "root": { "kind": "ec", "digest": "5931fa8d758fab10e77e34a9ac2ad5fc" },
+  "depends": {
+    "AlgTactic": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "850cd748ba64fbbb969579c57fb7186d"
+    },
+    "AllCore": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "530d964738d9a6b9093986916c5225d1"
+    },
+    "BigOps": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "dc67c68f8a52eb3d40ce6ce2cfbf35f1"
+    },
+    "Bigalg": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "e88204311613892d6d56395cfc7f1f22"
+    },
+    "Bigop": {
+      "direct": false,
+      "kind": "eca",
+      "digest": "df44e8fce988e1889f40d4b616961a54"
+    },
+    "Binomial": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "1e23893cdbfac8da97b831166366c823"
+    },
+    "Bool": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "62eccfce391e38a3470506f7e36dc115"
+    },
+    "ChainBase": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "0800dc852296523b2d2d21118ba70b2e"
+    },
+    "ChainCol": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "069a274d0b80b180d7785a198f957aef"
+    },
+    "ChainDead": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "d69c674215ffc0ef2ea705442e564bb9"
+    },
+    "ChainExt": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "3742a21a2489e37e7f5724f6fd18a7a7"
+    },
+    "ChainFlag": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "c4d0e30a5e24ebca763c2bb644af0d15"
+    },
+    "ChainGame": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "44499a0718e73c4ab5c37a735ec676c9"
+    },
+    "ChainLazy": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "4745a0d37e51886aa059e23f853ad950"
+    },
+    "ChainProg": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "a59983294db464f21d5b2546afc152ad"
+    },
+    "ChainRep": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "adb9f512d5611ec18799e1fb539ea603"
+    },
+    "ChainSim": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "024dd613ccd51bb1116551e197f87817"
+    },
+    "Core": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "4c1f1b14433a0e81286f6af1e6795b1e"
+    },
+    "CoreInt": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "656971c528721573c2aadba8c3e474f0"
+    },
+    "CoreMap": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "4ca3e904f01727612fbbc929e0c74cf9"
+    },
+    "CoreReal": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "71a66b712b2595af8e02fada3eaa0c67"
+    },
+    "Corruption": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "65dd17bf622f31ad3359ab700c2eceb7"
+    },
+    "DInterval": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "41362165e3905f2796f95ff650ca17fe"
+    },
+    "DList": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "e5fea8f1f5b0543553ea39c5660f6fec"
+    },
+    "DProd": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "ece7b881468e9a3411abd6d8932e7eec"
+    },
+    "Discrete": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "7bfc7bffc1442385fc98161d37676888"
+    },
+    "Distr": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "97f21c11171f5d46d4b4289b18fa9c04"
+    },
+    "ExtRO": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "f01a576cfa43ca8680d2f99266418aca"
+    },
+    "Extract": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "8a042e8c6afa3e886cd969186f508ebb"
+    },
+    "FMap": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "b43c597cc5536b64343655dad36bba5b"
+    },
+    "FSet": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "d6644f48a81e8406088a47023a938b28"
+    },
+    "FelTactic": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "5c7f086136439a486a1c9ca927517963"
+    },
+    "FinEnum": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "291d570128407e8c410fb4d9eec6f627"
+    },
+    "FinType": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "35da7c0f7bb9fe412bfb938cb1036abf"
+    },
+    "Finite": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "b97d32983e1fb562a4ce3233cef9e7b6"
+    },
+    "Ideal": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "244d722979362e4a3dc28366f608cfa4"
+    },
+    "Int": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "9e1878ac5a993a111a8528a9d7507c72"
+    },
+    "IntDiv": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "dbf9d49943a5e9cc18df75972d6914d3"
+    },
+    "IntMin": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "6e85ff145774627ec46ac4b58a8d47c8"
+    },
+    "Lagrange": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "97d80fe5c7728f3b0c27ca8e782f508d"
+    },
+    "List": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "87827651d8c61e60ac841ce62b9867e5"
+    },
+    "Logic": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "6b500cdc50293d9b0674166fdcc73d7e"
+    },
+    "Masking": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "180285e97ba1659d107183cc28ec05e0"
+    },
+    "Matrix": {
+      "direct": false,
+      "kind": "eca",
+      "digest": "89521cd7882b8775924c2dd9f369b574"
+    },
+    "Monoid": {
+      "direct": false,
+      "kind": "eca",
+      "digest": "b94b5fd99cc42a3a5fb358ab9c0f0d32"
+    },
+    "Notions": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "e7821e580727be69c016a7dc67e0275a"
+    },
+    "Number": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "b9016fa51385372ce8fe5e214fa6f60a"
+    },
+    "Params": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "5404df7cff63240b1f66205777724b9e"
+    },
+    "Perms": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "523a412a52e37ae80bb102236e65c63c"
+    },
+    "Pervasive": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "0f385a91ae1a1269de2ba2b7fad360d0"
+    },
+    "Poly": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "372f1de51c523a580a698f242aeb4258"
+    },
+    "PolyList": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "f57b45174c3733a62cb13365b81bb031"
+    },
+    "PolyReduce": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "7eadf2b7259f26ece415e6b6bbf6c8db"
+    },
+    "Privacy": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "efce5e31dbb6e001c8022373250c4a51"
+    },
+    "Protocol": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "60825f3b0ba90d0a0d267f70a9c39a88"
+    },
+    "QROM": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "bef8a53e200c7d1c421d9260e937f3d2"
+    },
+    "Quotient": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "dc56e1e8ccb8e66de714788bbe48bb9d"
+    },
+    "Real": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "7210cb29d07d4aa3d71558587db39e2d"
+    },
+    "RealExp": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "5116449d24ac683eeec6eab99a3c1398"
+    },
+    "RealFLub": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "0257ecf71c2b08bece4f9fd5f067334b"
+    },
+    "RealFun": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "9fe1e34fee9b04896cf0f5380e83ad7f"
+    },
+    "RealLub": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "c56de10af1168a0d9e1461ade3cfc251"
+    },
+    "RealSeq": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "e9e86e10f7b3df8d9dfe9de0c4a2e36f"
+    },
+    "RealSeries": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "45dbd392e40bc39bbbbf6a3845111d26"
+    },
+    "Ring": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "1679a80ea225fe5d8904c9cd0f5d99c1"
+    },
+    "ShamirLagrange": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "dc512002ab113e275012003ad5633add"
+    },
+    "Sharing": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "eb81a1e5a5d913b9f6f704163cc778d6"
+    },
+    "SmtMap": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "f9765c5d991ea67cdef1572a98ea13b9"
+    },
+    "StdBigop": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "3ef933d3ba2a743f395e2153324b9e4c"
+    },
+    "StdOrder": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "82265e9586f68a8a961d27de80735728"
+    },
+    "StdRing": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "86d8efe5a5c553697e271a3bbbfa51a2"
+    },
+    "Subtype": {
+      "direct": false,
+      "kind": "eca",
+      "digest": "1c3c6bac42a4a1feb23376c7e09a5276"
+    },
+    "Tactics": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "86b1b5cd82f32d0405a70279cdc8b67b"
+    },
+    "Types": {
+      "direct": true,
+      "kind": "ec",
+      "digest": "704e01975df29abdff9ae46f2111b759"
+    },
+    "Xint": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "f8cdbe78777b5164dc57262d577911a4"
+    },
+    "ZModP": {
+      "direct": false,
+      "kind": "ec",
+      "digest": "62942415fdcd51f906ec59ac2bfcd4f9"
+    }
+  }
+}

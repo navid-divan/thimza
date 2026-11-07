@@ -17,7 +17,10 @@ FILES="Params.ec Types.ec BigOps.ec PolyList.ec Lagrange.ec Sharing.ec ShamirLag
 Masking.ec MaskAlgebra.ec ViewPartition.ec Corruption.ec Simulator.ec Statelessness.ec \
 QROM.ec Protocol.ec Notions.ec Privacy.ec ClassSim.ec Interchange.ec HintAlg.ec Extract.ec \
 Games.ec Hierarchy.ec Assumptions.ec Security.ec \
-ExtRO.ec FinEnum.ec ChainBase.ec ChainGame.ec ChainCol.ec ChainSim.ec ChainDead.ec ChainLazy.ec"
+ExtRO.ec FinEnum.ec ChainBase.ec ChainGame.ec ChainCol.ec ChainSim.ec ChainDead.ec ChainLazy.ec \
+ChainFlag.ec ChainExt.ec ChainRep.ec ChainProg.ec ChainHint.ec ShamirHide.ec ChainFin.ec \
+ChainCons.ec ChainPB.ec ChainGA.ec ChainB2.ec ChainB3.ec ChainB1a.ec ChainB1b.ec ChainB1c.ec \
+ChainB1d.ec ChainMain.ec"
 
 # files allowed to state global axioms, and why
 QFILES="QROM.ec ExtRO.ec"   # quantum random oracle facts and their theory parameters
