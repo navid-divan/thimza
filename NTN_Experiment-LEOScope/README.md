@@ -1,4 +1,4 @@
-# Thimza on a LEO satellite link: LEOScope experiment
+# Thimza on a LEO Satellite Link: LEOScope Experiment
 
 This directory containts the input and the output of our experiment that measures the
 Thimza threshold signature on a LEOScope node behind a Starlink terminal. It
