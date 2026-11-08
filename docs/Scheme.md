@@ -66,7 +66,7 @@ sequenceDiagram
     B->>A: B
     Note over A: K = B^a mod p
     Note over B: K = A^b mod p
-    Note over A,B: Both hold the same shared key K = g^(ab) mod p
+    Note over A,B: Both hold the same shared <br/> key K = g^(ab) mod p
 ```
 
 The shared key is $K = g^{ab} \bmod p$.
