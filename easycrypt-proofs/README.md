@@ -1,6 +1,6 @@
-# $\textsf{Thimza}$ Machine-checked Security Proofs
+# Machine-checked Security Proofs of $\textsf{Thimza}$
 
-This directory formalizes $\textsf{Thimza}$ and its security argument in [EasyCrypt](https://link.springer.com/chapter/10.1007/978-3-642-22792-9_5). 
+This directory formalizes $\textsf{Thimza}$ and its security argument in [EasyCrypt](https://link.springer.com/chapter/10.1007/978-3-642-22792-9_5), with the quantum random oracle modelled as in [EasyPQC](https://dl.acm.org/doi/10.1145/3460120.3484567). 
 
 ## Running the check
 
