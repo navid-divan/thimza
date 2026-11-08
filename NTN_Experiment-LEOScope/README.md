@@ -12,8 +12,7 @@ measured both on the node's processor and across the satellite link.
 | `Output_of_LEOScope/` | the artifacts that LEOScope returned for the run of 5 November 2026 |
 
 This artifact is anonymized review. The Docker image name
-`anonymous/thimza-ntn:1.0.0` is anonymized, so build the image locally (see
-[Running it](#running-it)).
+`anonymous/thimza-ntn:1.0.0` is anonymized, so build the image locally.
 
 ---
 
