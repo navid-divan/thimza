@@ -32,11 +32,11 @@ $`\mathsf{vw}=H_1(\mathsf{vk},\mu,T,(\mathsf{cmt}_j)_{j\in T})`$ and only then s
 **Round 3** (checking, responding, erasing). Signer $`i`$ checks the digest and every opening,
 $`\mathsf{cmt}_j=H_0(\mathsf{vk},\mu,j,\bar{\mathbf{w}}_j)`$ for all $`j\in T`$, and computes
 
-$$`\mathbf{w}=\Big\lfloor\sum_{j\in T}2^{\nu_c}\bar{\mathbf{w}}_j\Big\rceil_{\nu_w},\qquad c=H_c(\mathsf{vk},\mathbf{w},\mu),`$$
+$$\mathbf{w}=\Big\lfloor\sum_{j\in T}2^{\nu_c}\bar{\mathbf{w}}_j\Big\rceil_{\nu_w},\qquad c=H_c(\mathsf{vk},\mathbf{w},\mu),$$
 
-$$`\mathbf{m}_i=\sum_{j\in T\setminus\{i\}}\varepsilon_{ij}\,\mathsf{PRF}(\mathsf{sd}_{\{i,j\}},\mathsf{vw}),\qquad \varepsilon_{ij}=-\varepsilon_{ji}=1\ \text{for}\ i<j,`$$
+$$\mathbf{m}_i=\sum_{j\in T\setminus\{i\}}\varepsilon_{ij}\,\mathsf{PRF}(\mathsf{sd}_{\{i,j\}},\mathsf{vw}),\qquad \varepsilon_{ij}=-\varepsilon_{ji}=1\ \text{for}\ i<j,$$
 
-$$`\mathbf{z}_i=c\,\lambda_{T,i}\,\mathbf{s}_i+\mathbf{r}_i+\mathbf{m}_i,`$$
+$$\mathbf{z}_i=c\,\lambda_{T,i}\,\mathbf{s}_i+\mathbf{r}_i+\mathbf{m}_i,$$
 
 erases the token and sends $`\mathbf{z}_i`$. The masks are keyed by the digest of the request, not by a
 session identifier, and their antisymmetry gives $`\sum_{i\in T}\mathbf{m}_i=\mathbf{0}`$.
