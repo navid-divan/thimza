@@ -49,24 +49,3 @@ $`\mathbf{h}=\mathbf{w}-\lfloor\mathbf{A}\mathbf{z}-2^{\nu_t}c\,\mathbf{t}\rceil
 $`\sigma=(c,\mathbf{z},\mathbf{h})`$, and the Raccoon verifier with bound $B$ accepts if and only if
 
 $$c=H_c\big(\mathsf{vk},\ \lfloor\mathbf{A}\mathbf{z}-2^{\nu_t}c\,\mathbf{t}\rceil_{\nu_w}+\mathbf{h},\ \mu\big)\ \wedge\ \big\|(\mathbf{z},\,2^{\nu_w}\mathbf{h})\big\|_2\le B .$$
-
-
-
-
-
-
-
-```mermaid
-sequenceDiagram
-    participant A as Alice
-    participant B as Bob
-    Note over A: picks secret a<br/>computes A = g^a mod p
-    Note over B: picks secret b<br/>computes B = g^b mod p
-    A->>B: A
-    B->>A: B
-    Note over A: K = B^a mod p
-    Note over B: K = A^b mod p
-    Note over A,B: Both hold the same shared <br/> key K = g^(ab) mod p
-```
-
-The shared key is $K = g^{ab} \bmod p$.
