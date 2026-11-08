@@ -1,7 +1,7 @@
 # $\textsf{Thimza}$ on a LEO Satellite Link: LEOScope Experiment
 
 This directory containts the input and the output of our experiment that measures the
-$\textsf{Thimza}$ threshold signature on a LEOScope node behind a Starlink terminal. It
+$\textsf{Thimza}$ threshold signature on a LEOScope node behind a Starlink terminal (for further info on the tool, refer to LEOScope [Webpage](https://leoscope.surrey.ac.uk/) and [Paper](https://dl.acm.org/doi/10.1145/3750832.3750835)). It
 covers the three $\textsf{Thimza}$ parameter sets (levels I, III and V, that is 128, 192
 and 256 bit security, all with φ = 512 and q = 2^49 − 2^41 + 1). Each set is
 measured both on the node's processor and across the satellite link.
