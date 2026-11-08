@@ -17,7 +17,7 @@ $\textsf{Thimza}$ is a three-round $(t,n)$ lattice threshold signature whose sig
 `ring.py` implements negacyclic NTT arithmetic over $\mathbb{Z}_q[X]/(X^{\varphi}+1)$ for $q<2^{51}$,
 `sampling.py` the uniform, discrete Gaussian, challenge and monomial samplers, `prf.py` the
 [SHAKE256](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-208.pdf)-based XOF, PRF, hash to challenge and hash to Gaussian, `shamir.py` [Shamir](https://dl.acm.org/doi/10.1145/359168.359176) sharing over
-$R_q$ with Lagrange reconstruction, `masking.py` the antisymmetric masks of $\textsf{Thimza}$ and the
+$`R_q`$ with Lagrange reconstruction, `masking.py` the antisymmetric masks of $\textsf{Thimza}$ and the
 ordered pair masks of prior work, `core.py` the [Raccoon](https://doi.org/10.1007/978-3-031-68376-3_13) core shared by all Fiat-Shamir schemes,
 `estimator.py` a core-SVP estimator (primal uSVP and primal SIS) inspired by the [Lattice
 Estimator](https://github.com/malb/lattice-estimator), `derive.py` the parameter constraint system and the size model, and `params.py` the
