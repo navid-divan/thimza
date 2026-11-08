@@ -8,7 +8,7 @@ $\textsf{Thimza}$ is a three-round $(t,n)$ lattice threshold signature whose sig
 | [`thimza/`](thimza) | implementation of $\textsf{Thimza}$ and of the schemes it is compared with |
 | [`experiments/`](experiments) | correctness test, benchmarks, parameter derivation and figures |
 | [`results/`](results), [`figures/`](figures) | outputs of the experiments |
-| [`easycrypt-proofs/`](easycrypt-proofs) | [EasyCrypt](https://doi.org/10.1007/978-3-642-22792-9_5) machine-checked proofs with QROM modelled as in [EasyPQC](https://dl.acm.org/doi/10.1145/3460120.3484567), see [README](easycrypt-proofs/README.md) |
+| [`easycrypt-proofs/`](easycrypt-proofs) | [EasyCrypt](https://doi.org/10.1007/978-3-642-22792-9_5) mechanized proofs with QROM as in [EasyPQC](https://dl.acm.org/doi/10.1145/3460120.3484567), see [README](easycrypt-proofs/README.md) |
 | [`NTN_Experiment-LEOScope/`](NTN_Experiment-LEOScope) | container tested on [LEOScope](https://leoscope.surrey.ac.uk/) and the artifacts it returned, see [README](NTN_Experiment-LEOScope/README.md) |
 
 ⚠️ **This is an ongoing initiative, so $\textsf{Thimza}$ should not be deployed in real-world production systems yet.**
