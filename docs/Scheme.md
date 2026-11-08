@@ -13,8 +13,8 @@ $0$. The hash functions $H_0,H_1$ (output $n_H=5\lambda$ bits), $H_c$ (into $\ma
 ## Procedures
 
 **Key generation.** A trusted dealer samples
-$(\mathbf{s},\mathbf{e})\leftarrow D_{\sigma_t}^{\ell}\times D_{\sigma_t}^{k}$, publishes
-$\mathsf{vk}=(\mathsf{seed},\mathbf{t})$ with $\mathbf{t}=\lfloor\mathbf{A}\mathbf{s}+\mathbf{e}\rceil_{\nu_t}$,
+$`(\mathbf{s},\mathbf{e})\leftarrow D_{\sigma_t}^{\ell}\times D_{\sigma_t}^{k}`$, publishes
+$`\mathsf{vk}=(\mathsf{seed},\mathbf{t})`$ with $`\mathbf{t}=\lfloor\mathbf{A}\mathbf{s}+\mathbf{e}\rceil_{\nu_t}`$,
 shares $\mathbf{s}$ with a uniform polynomial of degree $t-1$,
 $`\mathbf{s}_i=\mathbf{s}+\sum_{u=1}^{t-1}\alpha_i^{u}\,\mathbf{p}_u, \text{ and } \mathbf{p}_u\leftarrow R_q^{\ell},`$
 and gives every unordered pair $\{i,j\}$ a common seed $\mathsf{sd}_{\{i,j\}}$, so that
