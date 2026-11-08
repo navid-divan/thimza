@@ -1,8 +1,8 @@
-# Thimza on a LEO Satellite Link: LEOScope Experiment
+# $\textsf{Thimza}$ on a LEO Satellite Link: LEOScope Experiment
 
 This directory containts the input and the output of our experiment that measures the
-Thimza threshold signature on a LEOScope node behind a Starlink terminal. It
-covers the three Thimza parameter sets (levels I, III and V, that is 128, 192
+$\textsf{Thimza}$ threshold signature on a LEOScope node behind a Starlink terminal. It
+covers the three $\textsf{Thimza}$ parameter sets (levels I, III and V, that is 128, 192
 and 256 bit security, all with φ = 512 and q = 2^49 − 2^41 + 1). Each set is
 measured both on the node's processor and across the satellite link.
 
@@ -32,7 +32,7 @@ This artifact is anonymized review. The Docker image name
 
 ### Stages in Run
 
-| Stage | What it measures |
+| Stage | Measures |
 | --- | --- |
 | `sysinfo` | processor, flags, frequency governor, cgroup limits, kernel, Python, NumPy and its SIMD dispatch, OpenSSL, DNS, the SHA-256 of every file of the code that runs, and the parameter table with our research's size model |
 | `thimza_selftest` | correctness on the node: the 11 unit tests, exactness of the floating-point `mulmod`, the NTT against multiplication, honest (t, n) signing at all levels with rejection of a changed message and of a tampered response, the independent schoolbook verifier, round trips of every wire encoding, and known answers |
