@@ -1,7 +1,7 @@
 # $\textsf{Thimza}$
 
-$\textsf{Thimza}$ is a three-round $(t,n)$ lattice threshold signature whose signatures are
-[Raccoon](https://doi.org/10.1007/978-3-031-68376-3_13) signatures, accepted by the unmodified Raccoon verifier, which measured on non-terrestrial networks via [LEOScope](https://leoscope.surrey.ac.uk/) [[Details](https://dl.acm.org/doi/10.1145/3750832.3750835)]. To see quickly how $\textsf{Thimza}$ works, refer to [Scheme.md](https://github.com/navid-divan/thimza/blob/main/docs/Scheme.md) and for concrete security parameters see [Parameters.md](https://github.com/navid-divan/thimza/blob/main/docs/Parameters.md) file. This repository contains our practical developments, findings and results, as this table shows the layout:
+As a three-round $(t,n)$ lattice threshold signature system, $\textsf{Thimza}$'s signatures are
+[Raccoon](https://doi.org/10.1007/978-3-031-68376-3_13) signatures, accepted by the unmodified Raccoon [verifier](https://github.com/masksign/raccoon), which measured on non-terrestrial networks via [LEOScope](https://leoscope.surrey.ac.uk/) [[Details](https://dl.acm.org/doi/10.1145/3750832.3750835)]. To see quickly how $\textsf{Thimza}$ works, refer to [Scheme.md](https://github.com/navid-divan/thimza/blob/main/docs/Scheme.md) and for concrete security parameters see [Parameters.md](https://github.com/navid-divan/thimza/blob/main/docs/Parameters.md) file. This repository contains our practical developments, findings and results, as this table shows the layout:
 | Path | Content |
 | --- | --- |
 | [`docs/Draft.pdf`](docs/Draft.pdf) | full version of our research, with all proofs and the details |
