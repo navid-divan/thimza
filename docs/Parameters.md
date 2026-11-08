@@ -1,4 +1,4 @@
-## $\textsf{Thimza}$'s Concrete Parameters 
+# $`\textsf{Thimza}`$'s Concrete Parameters 
 
 | Post-quantum Security | Level I | Level III | Level V |
 | --- | ---: | ---: | ---: |
